@@ -1,4 +1,4 @@
-package source;
+package sam;
 
 public class Heparina extends Medicamento{
     private int formulacao;

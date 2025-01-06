@@ -1,4 +1,4 @@
-package source;
+package sam;
 
 public class Paracetamol extends Medicamento{
     private int dosagemPrescrita;

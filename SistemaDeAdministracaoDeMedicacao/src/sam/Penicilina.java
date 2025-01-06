@@ -1,4 +1,4 @@
-package source;
+package sam;
 
 public class Penicilina extends Medicamento{
     private static final int diluicao = 10;

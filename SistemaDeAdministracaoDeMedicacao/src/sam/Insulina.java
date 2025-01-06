@@ -1,4 +1,4 @@
-package source;
+package sam;
 
 public class Insulina extends Medicamento{
     private String tipoDeSeringa;
