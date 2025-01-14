@@ -140,14 +140,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_labelLoginActionPerformed
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        if(labelLogin.getText().equals("adm")){
-            new PesquisarEnfermeiro().setVisible(true);
-            this.setVisible(false);
-        }
-        else if(labelLogin.getText().equals("coren")) {
-            new TelaInicial().setVisible(true);
-            this.setVisible(false);
-        }
+        new PesquisarEnfermeiro().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btEntrarActionPerformed
 
     /**
