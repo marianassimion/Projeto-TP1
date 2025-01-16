@@ -9,7 +9,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // Habilitar botões
         btnPacientes.setEnabled(true);
         btnSair.setEnabled(true);
-        btnHistorico.setEnabled(true);
+        btnEnfermeiros.setEnabled(true);
         btnCalculoMedicacao.setEnabled(true);
         
         
@@ -29,9 +29,10 @@ public class TelaInicial extends javax.swing.JFrame {
         tituloInicial = new javax.swing.JLabel();
         btnCalculoMedicacao = new javax.swing.JButton();
         btnPacientes = new javax.swing.JButton();
-        btnHistorico = new javax.swing.JButton();
+        btnEnfermeiros = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnHistorico1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -71,11 +72,15 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        btnHistorico.setBackground(new java.awt.Color(204, 204, 204));
-        btnHistorico.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnHistorico.setForeground(new java.awt.Color(51, 51, 51));
-        btnHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/historico 32px.png"))); // NOI18N
-        btnHistorico.setText("Histórico");
+        btnEnfermeiros.setBackground(new java.awt.Color(204, 204, 204));
+        btnEnfermeiros.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnEnfermeiros.setForeground(new java.awt.Color(51, 51, 51));
+        btnEnfermeiros.setText("Enfermeiros");
+        btnEnfermeiros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnfermeirosActionPerformed(evt);
+            }
+        });
 
         btnSair.setBackground(new java.awt.Color(204, 204, 204));
         btnSair.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -91,6 +96,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Enfermeiro 32px.png"))); // NOI18N
 
+        btnHistorico1.setBackground(new java.awt.Color(204, 204, 204));
+        btnHistorico1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnHistorico1.setForeground(new java.awt.Color(51, 51, 51));
+        btnHistorico1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/historico 32px.png"))); // NOI18N
+        btnHistorico1.setText("Histórico");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -100,10 +111,10 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEnfermeiros, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btnSair)
                         .addGap(111, 111, 111))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -111,6 +122,11 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCalculoMedicacao)
                         .addGap(19, 19, 19))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(558, Short.MAX_VALUE)
+                    .addComponent(btnHistorico1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(215, 215, 215)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,15 +137,19 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnPacientes)
-                            .addComponent(btnCalculoMedicacao))
+                            .addComponent(btnCalculoMedicacao)
+                            .addComponent(btnEnfermeiros))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnHistorico)
-                            .addComponent(btnSair)))
+                        .addComponent(btnSair))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(84, Short.MAX_VALUE)
+                    .addComponent(btnHistorico1)
+                    .addContainerGap()))
         );
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/hospital 256px.png"))); // NOI18N
@@ -148,7 +168,7 @@ public class TelaInicial extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(70, 70, 70))
         );
@@ -179,6 +199,12 @@ public class TelaInicial extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnEnfermeirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnfermeirosActionPerformed
+        // TODO add your handling code here:
+        new TelaPesquisarEnfermeiro().setVisible(true);
+
+    }//GEN-LAST:event_btnEnfermeirosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,7 +244,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculoMedicacao;
-    private javax.swing.JButton btnHistorico;
+    private javax.swing.JButton btnEnfermeiros;
+    private javax.swing.JButton btnHistorico1;
     private javax.swing.JButton btnPacientes;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
