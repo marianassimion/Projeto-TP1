@@ -1,19 +1,15 @@
 package Telas;
-import java.time.LocalDate;
 import sam.Paciente;
-import java.util.ArrayList;
+import java.io.*;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.io.*;
-import java.util.List;
 
 public class TelaCadastroPaciente extends javax.swing.JFrame {
     
     //static ArrayList<Paciente> listaPacientes;
     private static final String BANCO_DADOS = "cadastro_pacientes.txt";
-
-    String botao = "novo"; //para configuracao
     
     public TelaCadastroPaciente() {
        // listaPacientes = new ArrayList(); //lista vazia de pacientes
@@ -70,8 +66,39 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     
 
     //validação de cpf aquii
-    private static boolean isCpf(String CPF){
-        if ((CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222") || CPF.equals("33333333333") || CPF.equals("44444444444") || CPF.equals("55555555555") || CPF.equals("66666666666") || CPF.equals("77777777777") || CPF.equals("88888888888") || CPF.equals("99999999999") || (CPF.length() != 11))){
+
+    public static boolean isCpfValido(String cpf) {
+        // Verificando se tem 11 dígitos
+        if (cpf.length() != 11 || cpf.matches("(\\d)\\1{10}")) {
+            return false;
+        }
+
+        try {
+            // Cálculo do primeiro dígito verificador
+            int soma = 0;
+            for (int i = 0; i < 9; i++) {
+                soma += (cpf.charAt(i) - '0') * (10 - i);
+            }
+            int primeiroDigito = 11 - (soma % 11);
+            if (primeiroDigito >= 10) primeiroDigito = 0;
+
+            // Cálculo do segundo dígito verificador
+            soma = 0;
+            for (int i = 0; i < 10; i++) {
+                soma += (cpf.charAt(i) - '0') * (11 - i);
+            }
+            int segundoDigito = 11 - (soma % 11);
+            if (segundoDigito >= 10) segundoDigito = 0;
+
+            // Comparando com os dígitos informados
+            return (cpf.charAt(9) - '0' == primeiroDigito) && (cpf.charAt(10) - '0' == segundoDigito);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isCpf(String cpf){
+        if ((cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222") || cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555") || cpf.equals("66666666666") || cpf.equals("77777777777") || cpf.equals("88888888888") || cpf.equals("99999999999") || (cpf.length() != 11))){
             return(false);
         }
         else{
@@ -327,23 +354,31 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 String cpf = txtCpfPacienteCadastro.getText();
                 String dataNascimentoStr = txtDataNascimentoPacienteCadastro.getText();
                 String alergia = cbAlergiasPacienteCadastro.getSelectedItem().toString();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definindo o formato da data
-                LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-
-                LocalDate hoje = LocalDate.now();
-
-                if (dataNascimento.isAfter(hoje)) {
-                    JOptionPane.showMessageDialog(null, "A data de nascimento não pode ser no futuro.", "Erro de Data", JOptionPane.ERROR_MESSAGE);
-                        return;}
-                
                 
                 float peso = Float.valueOf(txtPesoPacienteCadastro.getText());
                 float altura = Float.valueOf(txtAlturaPacienteCadastro.getText());
                 int idade = Integer.parseInt(txtIdadePacienteCadastro.getText());
                 
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definindo o formato da data
+                LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+                
+                LocalDate hoje = LocalDate.now();
 
-                if (!cpf.matches("\\d{11}")) {
+                // Removendo caracteres não numéricos
+                cpf = cpf.replaceAll("[^0-9]", "");
+
+                
+                if (dataNascimento.isAfter(hoje)) {
+                    JOptionPane.showMessageDialog(null, "A data de nascimento não pode ser no futuro.", "Erro de Data", JOptionPane.ERROR_MESSAGE);
+                        return;}
+
+                if (isCpf(cpf) == false) {
                     JOptionPane.showMessageDialog(null, "CPF deve conter exatamente 11 dígitos numéricos.", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
+                        return;
+                }
+                
+                if (isCpfValido(cpf) == false) {
+                    JOptionPane.showMessageDialog(null, "Insira um CPF válido", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
                         return;
                 }
                 

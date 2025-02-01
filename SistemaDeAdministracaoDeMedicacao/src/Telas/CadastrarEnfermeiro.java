@@ -1,184 +1,361 @@
 package Telas;
+import sam.Enfermeiro;
+import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
+
 public class CadastrarEnfermeiro extends javax.swing.JFrame {
-    public CadastrarEnfermeiro() {
+    private static final String BANCO_DADOS = "cadastro_enfermeiro.txt";
+    
+    
+    public CadastrarEnfermeiro() { // inicio da tela 
         initComponents();
+        
+        setLocationRelativeTo(null);
+        btnCancelarCadastroEnfermeiro.setEnabled(true);
+        btnSalvarCadastroEnfermeiro.setEnabled(true);
+        btnLimparCadastroEnfermeiro.setEnabled(true);
+        
+        
+        txtNomeCadastroEnfermeiro.setText("");
+        txtSetorCadastroEnfermeiro.setText("");
+        txtCorenCadastroEnfermeiro.setText("");
+        txtDataNascimentoCadastroEnfermeiro.setText("//");
+        txtCpfCadastroEnfermeiro.setText("");   
     }
+    
+    public static void salvarNoArquivo(Enfermeiro enfermeiro){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(BANCO_DADOS, true))){
+                        
+            writer.write(enfermeiro.toString());
+            writer.newLine();
+        }
+        catch (IOException e){
+            System.out.println("Erro ao salvar os dados: " + e.getMessage());
+        }
+    }
+    
+     public static void listarArquivo(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(BANCO_DADOS))){
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                System.out.println("Linha lida: "+ linha);
+
+                String[] partes = linha.split(";");
+                String nome = partes[0].trim();
+                String cpf = partes[1].trim();
+                LocalDate dataNascimento = LocalDate.parse(partes[2].trim());
+                String coren = partes[3].trim();
+                String setor = partes[4].trim();
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Erro ao ler os dados: " + e.getMessage());
+        }}
+    
+    private static boolean isNomeValido(String nome) {
+        for (int i = 0; i < nome.length(); i++){
+            char c = nome.charAt(i);
+            if (!Character.isLetter(c) && c != ' ') {
+                return false; // Se encontrar um caractere inválido, retorna falso
+            }
+        }
+        return true;
+    }
+
+
+    private static boolean isCoren(String coren){
+        // Verificando se o formato é de 4 a 6 dígitos seguidos por um hífen e duas letras maiúsculas
+
+        if (!coren.matches("\\d{4,6}-[A-Z]{2}")){
+            return false;
+        }
+        
+        String numeroCoren = coren.split("-")[0];
+        
+        // Se o COREN começar com 0 ou 9, não é válido
+
+        if(numeroCoren.matches("0{4,6}") || numeroCoren.matches("9{4,6}")){
+            return false;
+        }
+        
+        return true;
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtNome = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JLabel();
-        txtData = new javax.swing.JLabel();
-        txtSetor = new javax.swing.JLabel();
-        txtCoren = new javax.swing.JLabel();
-        lblNome = new javax.swing.JTextField();
-        lblData = new javax.swing.JTextField();
-        lblCpf = new javax.swing.JTextField();
-        lblCoren = new javax.swing.JTextField();
-        lblSetor = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        icnSair = new javax.swing.JLabel();
-        txtSair = new javax.swing.JLabel();
-        btVoltar = new javax.swing.JButton();
-        btSalvar = new javax.swing.JButton();
+        jPanel = new javax.swing.JPanel();
+        btnSalvarCadastroEnfermeiro = new javax.swing.JToggleButton();
+        btnCancelarCadastroEnfermeiro = new javax.swing.JButton();
+        btnLimparCadastroEnfermeiro = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtNomeCadastroEnfermeiro = new javax.swing.JTextField();
+        txtSetorCadastroEnfermeiro = new javax.swing.JTextField();
+        txtCorenCadastroEnfermeiro = new javax.swing.JFormattedTextField();
+        txtCpfCadastroEnfermeiro = new javax.swing.JFormattedTextField();
+        txtDataNascimentoCadastroEnfermeiro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAM - SISTEMA DE ADMINISTRAÇÃO DE MEDICAÇÃO");
 
-        txtNome.setText("Nome");
+        jPanel.setBackground(new java.awt.Color(204, 204, 255));
 
-        txtCpf.setText("CPF");
-
-        txtData.setText("Data de Nascimento");
-
-        txtSetor.setText("Setor");
-
-        txtCoren.setText("COREN");
-
-        lblNome.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarCadastroEnfermeiro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnSalvarCadastroEnfermeiro.setForeground(new java.awt.Color(0, 0, 0));
+        btnSalvarCadastroEnfermeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/salvarPaciente 32px.png"))); // NOI18N
+        btnSalvarCadastroEnfermeiro.setText("Salvar");
+        btnSalvarCadastroEnfermeiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblNomeActionPerformed(evt);
+                btnSalvarCadastroEnfermeiroActionPerformed(evt);
             }
         });
 
-        lblCoren.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelarCadastroEnfermeiro.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        btnCancelarCadastroEnfermeiro.setForeground(new java.awt.Color(0, 0, 0));
+        btnCancelarCadastroEnfermeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
+        btnCancelarCadastroEnfermeiro.setText("Cancelar");
+        btnCancelarCadastroEnfermeiro.setToolTipText("cancelar cadastro");
+        btnCancelarCadastroEnfermeiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblCorenActionPerformed(evt);
+                btnCancelarCadastroEnfermeiroActionPerformed(evt);
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        btnLimparCadastroEnfermeiro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnLimparCadastroEnfermeiro.setForeground(new java.awt.Color(0, 0, 0));
+        btnLimparCadastroEnfermeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/limpar.png"))); // NOI18N
+        btnLimparCadastroEnfermeiro.setText("Limpar");
+        btnLimparCadastroEnfermeiro.setToolTipText("limpar campos");
+        btnLimparCadastroEnfermeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCadastroEnfermeiroActionPerformed(evt);
+            }
+        });
 
-        icnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/sair 32px.png"))); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("COREN*");
 
-        txtSair.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        txtSair.setText("SAIR");
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Nome*");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(698, Short.MAX_VALUE)
-                .addComponent(icnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Data de Nascimento*");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("CPF*");
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Setor*");
+
+        txtNomeCadastroEnfermeiro.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtNomeCadastroEnfermeiro.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtSetorCadastroEnfermeiro.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtSetorCadastroEnfermeiro.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtCorenCadastroEnfermeiro.setToolTipText("dd/mm/ano");
+
+        txtCpfCadastroEnfermeiro.setToolTipText("dd/mm/ano");
+
+        txtDataNascimentoCadastroEnfermeiro.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txtDataNascimentoCadastroEnfermeiro.setForeground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
+        jPanel.setLayout(jPanelLayout);
+        jPanelLayout.setHorizontalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(btnSalvarCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelarCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimparCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNomeCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtCorenCadastroEnfermeiro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                    .addComponent(txtCpfCadastroEnfermeiro, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDataNascimentoCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanelLayout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addGap(278, 278, 278))
+                                        .addGroup(jPanelLayout.createSequentialGroup()
+                                            .addGap(74, 74, 74)
+                                            .addComponent(txtSetorCadastroEnfermeiro))))))))
+                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelLayout.createSequentialGroup()
+                    .addGap(44, 44, 44)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(698, Short.MAX_VALUE)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(icnSair)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtSair)
-                        .addGap(14, 14, 14))))
+        jPanelLayout.setVerticalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(txtNomeCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel4)
+                    .addComponent(txtCpfCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataNascimentoCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(35, 35, 35)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(txtSetorCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtCorenCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelarCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvarCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimparCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(87, 87, 87))
+            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelLayout.createSequentialGroup()
+                    .addGap(55, 55, 55)
+                    .addComponent(jLabel3)
+                    .addContainerGap(426, Short.MAX_VALUE)))
         );
 
-        btVoltar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        btVoltar.setText("Voltar");
-        btVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btVoltarActionPerformed(evt);
-            }
-        });
-
-        btSalvar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        btSalvar.setText("Salvar");
-        btSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarActionPerformed(evt);
-            }
-        });
+        txtCorenCadastroEnfermeiro.getAccessibleContext().setAccessibleName("");
+        txtCorenCadastroEnfermeiro.getAccessibleContext().setAccessibleDescription("12345-UF");
+        txtCpfCadastroEnfermeiro.getAccessibleContext().setAccessibleDescription("123.456.789-10");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btVoltar)
-                .addGap(27, 27, 27)
-                .addComponent(btSalvar)
-                .addGap(17, 17, 17))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblData)
-                    .addComponent(lblCpf, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCoren, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCoren, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNome)
-                    .addComponent(txtCoren)
-                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCoren, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCpf)
-                    .addComponent(txtSetor)
-                    .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtData)
-                    .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btVoltar)
-                    .addComponent(btSalvar))
-                .addGap(18, 18, 18))
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblNomeActionPerformed
+    private void btnSalvarCadastroEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCadastroEnfermeiroActionPerformed
+        //Verificando se os campos estão preenchidos
+        if (txtNomeCadastroEnfermeiro.getText().equals("") || txtCpfCadastroEnfermeiro.getText().equals("") || txtCorenCadastroEnfermeiro.getText().equals("") || txtDataNascimentoCadastroEnfermeiro.getText().equals("") || txtSetorCadastroEnfermeiro.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos", "Aviso", JOptionPane.PLAIN_MESSAGE);
+            btnSalvarCadastroEnfermeiro.setEnabled(true);
 
-    private void lblCorenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCorenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblCorenActionPerformed
-
-    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-
+        }
         
-    }//GEN-LAST:event_btVoltarActionPerformed
+        else{
+            try{
+                //Pegando os valores dos campos
+                String nome = txtNomeCadastroEnfermeiro.getText();
+                String cpf = txtCpfCadastroEnfermeiro.getText();
+                String coren = txtCorenCadastroEnfermeiro.getText();
+                String dataNascimentoStr = txtDataNascimentoCadastroEnfermeiro.getText();
+                String setor = txtSetorCadastroEnfermeiro.getText();
+            
+                //Formatando a data
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definindo o formato da data
+                LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+                LocalDate hoje = LocalDate.now();
+                
+                //removendo caracteres do cpf
+                cpf = cpf.replaceAll("[^0-9]", "");
+                
+                if (!isNomeValido(nome)){
+                    JOptionPane.showMessageDialog(null, "O nome não deve conter números ou caracteres especiais", "Nome inválido", JOptionPane.ERROR_MESSAGE);
+                        return;
+                }
+                
+                //verificando se a data de nascimento não é no futuro
+                if (dataNascimento.isAfter(hoje)) {
+                    JOptionPane.showMessageDialog(null, "A data de nascimento não pode ser no futuro.", "Erro de Data", JOptionPane.ERROR_MESSAGE);
+                        return;
+                }
+                
+                //verificando se o cpf é válido
+                if (!Enfermeiro.isCpfValido(cpf)) {
+                    JOptionPane.showMessageDialog(null, "CPF inválido", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
+                        return;
+                }
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        // TODO add your handling code here:
-                this.setVisible(false);
+                //Verificando se o coren é válido
+                if (!isCoren(coren)){
+                    JOptionPane.showMessageDialog(null, "Formato do COREN incorreto", "Erro de COREN", JOptionPane.ERROR_MESSAGE);
+                    btnSalvarCadastroEnfermeiro.setEnabled(true);
+                    return;
+                }
+                
+                Enfermeiro enfermeiro = new Enfermeiro(nome, cpf, dataNascimento, coren, setor);
+                salvarNoArquivo(enfermeiro);
 
-    }//GEN-LAST:event_btSalvarActionPerformed
+                JOptionPane.showMessageDialog(null, "Enfermeiro " + nome + " cadastro com sucesso no setor " + setor, "Cadastro concluído", JOptionPane.INFORMATION_MESSAGE);
+
+                txtNomeCadastroEnfermeiro.setText("");
+                txtSetorCadastroEnfermeiro.setText("");
+                txtCorenCadastroEnfermeiro.setText("");
+                txtDataNascimentoCadastroEnfermeiro.setText("//");
+                txtCpfCadastroEnfermeiro.setText("");   
+                dispose();
+            }
+            
+            catch(DateTimeParseException e){
+                JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/YYYY.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                btnSalvarCadastroEnfermeiro.setEnabled(true);
+
+
+            }
+        }
+    }//GEN-LAST:event_btnSalvarCadastroEnfermeiroActionPerformed
+
+    private void btnCancelarCadastroEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroEnfermeiroActionPerformed
+        txtNomeCadastroEnfermeiro.setText("");
+        txtSetorCadastroEnfermeiro.setText("");
+        txtCorenCadastroEnfermeiro.setText("");
+        txtDataNascimentoCadastroEnfermeiro.setText("");
+        txtCpfCadastroEnfermeiro.setText("");        
+        dispose();
+    }//GEN-LAST:event_btnCancelarCadastroEnfermeiroActionPerformed
+
+    private void btnLimparCadastroEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCadastroEnfermeiroActionPerformed
+        txtNomeCadastroEnfermeiro.setText("");
+        txtSetorCadastroEnfermeiro.setText("");
+        txtCorenCadastroEnfermeiro.setText("");
+        txtDataNascimentoCadastroEnfermeiro.setText("");
+        txtCpfCadastroEnfermeiro.setText("");
+    }//GEN-LAST:event_btnLimparCadastroEnfermeiroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,6 +383,9 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CadastrarEnfermeiro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -216,20 +396,19 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btSalvar;
-    private javax.swing.JButton btVoltar;
-    private javax.swing.JLabel icnSair;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField lblCoren;
-    private javax.swing.JTextField lblCpf;
-    private javax.swing.JTextField lblData;
-    private javax.swing.JTextField lblNome;
-    private javax.swing.JTextField lblSetor;
-    private javax.swing.JLabel txtCoren;
-    private javax.swing.JLabel txtCpf;
-    private javax.swing.JLabel txtData;
-    private javax.swing.JLabel txtNome;
-    private javax.swing.JLabel txtSair;
-    private javax.swing.JLabel txtSetor;
+    private javax.swing.JButton btnCancelarCadastroEnfermeiro;
+    private javax.swing.JButton btnLimparCadastroEnfermeiro;
+    private javax.swing.JToggleButton btnSalvarCadastroEnfermeiro;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel;
+    private javax.swing.JFormattedTextField txtCorenCadastroEnfermeiro;
+    private javax.swing.JFormattedTextField txtCpfCadastroEnfermeiro;
+    private javax.swing.JTextField txtDataNascimentoCadastroEnfermeiro;
+    private javax.swing.JTextField txtNomeCadastroEnfermeiro;
+    private javax.swing.JTextField txtSetorCadastroEnfermeiro;
     // End of variables declaration//GEN-END:variables
 }

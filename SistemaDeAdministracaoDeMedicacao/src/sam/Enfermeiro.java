@@ -1,14 +1,27 @@
 package sam;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Enfermeiro extends Pessoa{
-    private int coren;
+    
+    public static Enfermeiro fromString(String linha) {
+        System.out.println("Linha lida: " + linha);
+
+        String[] partes = linha.split(";");
+        String nome = partes[0].trim();
+        String cpf = partes[1].trim();
+        LocalDate dataNascimento = LocalDate.parse(partes[2].trim());
+        String coren = partes[3].trim();
+        String setor = partes[4].trim();
+
+        return new Enfermeiro(nome,cpf,dataNascimento, coren, setor);
+    }
+    
+    private String coren;
     private String setor;
     private String senha;
 
-    public Enfermeiro(String nome, String cpf, LocalDate dataDeNascimento, int coren, String setor) {
+    public Enfermeiro(String nome, String cpf, LocalDate dataDeNascimento, String coren, String setor) {
         super(nome, cpf, dataDeNascimento);
         this.coren = coren;
         this.setor = setor;
@@ -30,11 +43,11 @@ public class Enfermeiro extends Pessoa{
         
     }
     
-    public int getCoren() {
+    public String getCoren() {
         return coren;
     }
 
-    public void setCoren(int coren) {
+    public void setCoren(String coren) {
         this.coren = coren;
     }
 
@@ -53,4 +66,11 @@ public class Enfermeiro extends Pessoa{
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
+    @Override
+    public String toString() {
+        return super.toString() + coren + ";" +setor;
+    }
 }
+
+
