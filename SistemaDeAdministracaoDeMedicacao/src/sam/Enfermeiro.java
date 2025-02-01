@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Enfermeiro extends Pessoa{
     private int coren;
     private String setor;
+    private String senha;
 
     public Enfermeiro(String nome, String cpf, LocalDate dataDeNascimento, int coren, String setor) {
         super(nome, cpf, dataDeNascimento);
@@ -45,4 +46,11 @@ public class Enfermeiro extends Pessoa{
         this.setor = setor;
     }
     
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }
