@@ -157,6 +157,11 @@ public class TelaEditarEnfermeiro extends javax.swing.JFrame {
         btnCancelarEditarEnfermeiro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnCancelarEditarEnfermeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
         btnCancelarEditarEnfermeiro.setText("Cancelar");
+        btnCancelarEditarEnfermeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarEditarEnfermeiroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -312,12 +317,17 @@ public class TelaEditarEnfermeiro extends javax.swing.JFrame {
             catch(DateTimeParseException e){
                 JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/YYYY.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
                 btnSalvarEditarEnfermeiro.setEnabled(true);
-
-
             }
         }
         
     }//GEN-LAST:event_btnSalvarEditarEnfermeiroActionPerformed
+
+    private void btnCancelarEditarEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditarEnfermeiroActionPerformed
+        // TODO add your handling code here:
+        TelaEnfermeiro tela = new TelaEnfermeiro();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarEditarEnfermeiroActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -354,8 +364,6 @@ public class TelaEditarEnfermeiro extends javax.swing.JFrame {
                 String setor = "Azul";
                 TelaEditarEnfermeiro tela = new TelaEditarEnfermeiro(nome, cpf, dataNascimento, coren, setor);
                 tela.setVisible(true); // Exibe a tela
-
-                //new TelaEditarEnfermeiro(nome, cpf, dataNasicmento, core, setor).setVisible(true);
             }
         });
     }

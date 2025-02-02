@@ -1,11 +1,42 @@
 package Telas;
+import java.io.*;
+import javax.swing.JOptionPane;
 public class Principal extends javax.swing.JFrame {
 
-    
+    private static final String BANCO_DADOS = "login.txt";
     public Principal() {
         initComponents();
     }
 
+    public static boolean verificarCredenciais(String login, String senha){
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(BANCO_DADOS));
+            String linha;
+            
+            while ((linha = reader.readLine()) != null) {
+                String[] credenciais = linha.split(";");
+                if (credenciais.length == 2) {
+                    String loginArquivo = credenciais[0];
+                    String senhaArquivo = credenciais[1];
+                    System.out.println("Login arquivo:" + loginArquivo);
+                    System.out.println("Senha arquivo:" + senhaArquivo);
+
+                    if (loginArquivo.equals(login) && senhaArquivo.equals(senha)) {
+                        reader.close();
+                        return true;
+                    }
+                }
+                System.out.println("Login fornecido: "+ login);
+                System.out.println("Senha fornecido:" + senha);
+            }
+            reader.close();
+        }
+        catch(IOException e){
+            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
+        return false;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -17,8 +48,8 @@ public class Principal extends javax.swing.JFrame {
         txtLogin = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JLabel();
         txtSenha = new javax.swing.JLabel();
-        labelUsuario = new javax.swing.JTextField();
         labelSenha = new javax.swing.JTextField();
+        labelUsuario = new javax.swing.JTextField();
         btEntrar = new javax.swing.JButton();
 
         jLabel2.setText("SAM - SISTEMA DE ADMINISTRAÇÃO DE MEDICAÇÃO");
@@ -43,15 +74,15 @@ public class Principal extends javax.swing.JFrame {
         txtSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtSenha.setText("Senha");
 
-        labelUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                labelUsuarioActionPerformed(evt);
-            }
-        });
-
         labelSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 labelSenhaActionPerformed(evt);
+            }
+        });
+
+        labelUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                labelUsuarioActionPerformed(evt);
             }
         });
 
@@ -74,9 +105,9 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(txtSenha))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(290, Short.MAX_VALUE))
+                    .addComponent(labelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(272, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,49 +126,59 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtUsuario)
-                    .addComponent(labelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtSenha)
-                    .addComponent(labelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(btEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void labelUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelUsuarioActionPerformed
-
     private void labelSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_labelSenhaActionPerformed
 
+    private void labelUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelUsuarioActionPerformed
+
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        this.setVisible(false);
+        
+        String login = labelUsuario.getText();
+        String senha = labelSenha.getText();
 
-        new TelaInicial().setVisible(true);
-
+        verificarCredenciais(login, senha);
+        
+        if (verificarCredenciais(login, senha)){
+            this.setVisible(false);
+            new TelaInicial().setVisible(true);
+        } 
+        
+        else{
+            JOptionPane.showMessageDialog(this, "Login ou senha incorretos.");
+        }
+        
     }//GEN-LAST:event_btEntrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

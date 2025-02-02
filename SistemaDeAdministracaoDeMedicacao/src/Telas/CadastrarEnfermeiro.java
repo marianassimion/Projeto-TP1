@@ -7,12 +7,12 @@ import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 
 public class CadastrarEnfermeiro extends javax.swing.JFrame {
+    private static final String BANCO_LOGIN = "login.txt";
+
     private static final String BANCO_DADOS = "cadastro_enfermeiro.txt";
-    
     
     public CadastrarEnfermeiro() { // inicio da tela 
         initComponents();
-        
         setLocationRelativeTo(null);
         btnCancelarCadastroEnfermeiro.setEnabled(true);
         btnSalvarCadastroEnfermeiro.setEnabled(true);
@@ -30,6 +30,17 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(BANCO_DADOS, true))){
                         
             writer.write(enfermeiro.toString());
+            writer.newLine();
+        }
+        catch (IOException e){
+            System.out.println("Erro ao salvar os dados: " + e.getMessage());
+        }
+    }
+    public static void salvarLoginNoArquivo(String coren ,String senha){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(BANCO_LOGIN, true))){
+            String resul = coren +";"+ senha;
+            
+            writer.write(resul);
             writer.newLine();
         }
         catch (IOException e){
@@ -82,6 +93,41 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
         }
         
         return true;
+    }
+    private boolean cpfJaCadastrado(String cpf) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(BANCO_DADOS))) {
+        String linha;
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            if (partes.length >= 2) {
+                String cpfArquivo = partes[1].trim();
+                if (cpfArquivo.equals(cpf)) {
+                    return true; // CPF já cadastrado
+                }
+            }
+        }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao verificar CPF: " + e.getMessage());
+    }
+    return false; // CPF não encontrado
+    }
+    
+    private boolean corenJaCadastrado(String coren) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(BANCO_DADOS))) {
+        String linha;
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            if (partes.length >= 2) {
+                String corenArquivo = partes[3].trim();
+                if (corenArquivo.equals(coren)) {
+                    return true; // COREN já cadastrado
+                }
+            }
+        }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao verificar COREN: " + e.getMessage());
+    }
+    return false; // COREN não encontrado
     }
     
     
@@ -270,81 +316,101 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarCadastroEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCadastroEnfermeiroActionPerformed
-        //Verificando se os campos estão preenchidos
-        if (txtNomeCadastroEnfermeiro.getText().equals("") || txtCpfCadastroEnfermeiro.getText().equals("") || txtCorenCadastroEnfermeiro.getText().equals("") || txtDataNascimentoCadastroEnfermeiro.getText().equals("") || txtSetorCadastroEnfermeiro.getText().equals("")){
+        if (txtNomeCadastroEnfermeiro.getText().equals("") || txtCpfCadastroEnfermeiro.getText().equals("") || 
+            txtCorenCadastroEnfermeiro.getText().equals("") || txtDataNascimentoCadastroEnfermeiro.getText().equals("") || 
+            txtSetorCadastroEnfermeiro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos", "Aviso", JOptionPane.PLAIN_MESSAGE);
             btnSalvarCadastroEnfermeiro.setEnabled(true);
+    } else {
+        // Pegando os valores dos campos
+        String nome = txtNomeCadastroEnfermeiro.getText();
+        String cpf = txtCpfCadastroEnfermeiro.getText();
+        String coren = txtCorenCadastroEnfermeiro.getText();
+        String dataNascimentoStr = txtDataNascimentoCadastroEnfermeiro.getText();
+        String setor = txtSetorCadastroEnfermeiro.getText();
 
+        // Definindo o formato da data
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Verificando se o formato da data é correto
+        if (!dataNascimentoStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        // Tentando converter a data
+        LocalDate dataNascimento = null;
+        try {
+            dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificando se a data de nascimento não é no futuro
+        LocalDate hoje = LocalDate.now();
+        if (dataNascimento.isAfter(hoje)) {
+            JOptionPane.showMessageDialog(null, "A data de nascimento não pode ser no futuro.", "Erro de Data", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Formatando a data para o formato desejado
+        String dataFormatada = dataNascimento.format(formatter);
+
+        // Removendo caracteres do CPF
+        cpf = cpf.replaceAll("[^0-9]", "");
+
+        if (!isNomeValido(nome)) {
+            JOptionPane.showMessageDialog(null, "O nome não deve conter números ou caracteres especiais", "Nome inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (cpfJaCadastrado(cpf)) {
+            JOptionPane.showMessageDialog(this, "O CPF informado já está cadastrado!");
+            return;
+        }
+
+        if (corenJaCadastrado(coren)) {
+            JOptionPane.showMessageDialog(this, "O COREN informado já está cadastrado!");
+            return;
+        }
+
+        // Verificando se o CPF é válido
+        if (!Enfermeiro.isCpfValido(cpf)) {
+            JOptionPane.showMessageDialog(null, "CPF inválido", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificando se o coren é válido
+        if (!isCoren(coren)) {
+            JOptionPane.showMessageDialog(null, "Formato do COREN incorreto", "Erro de COREN", JOptionPane.ERROR_MESSAGE);
+            btnSalvarCadastroEnfermeiro.setEnabled(true);
+            return;
+        }
+
+        // Gerando login do enfermeiro
+        String[] partes = coren.split("-");
+        String corenStr = partes[0].trim();
+
+        String senhaEnfermeiro = nome.substring(0, 1).toUpperCase() + cpf;
+
+        // Criando o objeto Enfermeiro com a data formatada
+        Enfermeiro enfermeiro = new Enfermeiro(nome, cpf, dataFormatada, coren, setor);
+        salvarNoArquivo(enfermeiro);
+        salvarLoginNoArquivo(corenStr, senhaEnfermeiro);
         
-        else{
-            try{
-                //Pegando os valores dos campos
-                String nome = txtNomeCadastroEnfermeiro.getText();
-                String cpf = txtCpfCadastroEnfermeiro.getText();
-                String coren = txtCorenCadastroEnfermeiro.getText();
-                String dataNascimentoStr = txtDataNascimentoCadastroEnfermeiro.getText();
-                String setor = txtSetorCadastroEnfermeiro.getText();
-            
-                //Formatando a data
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definindo o formato da data
-                LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-                LocalDate hoje = LocalDate.now();
-                
-                //removendo caracteres do cpf
-                cpf = cpf.replaceAll("[^0-9]", "");
-                
-                if (!isNomeValido(nome)){
-                    JOptionPane.showMessageDialog(null, "O nome não deve conter números ou caracteres especiais", "Nome inválido", JOptionPane.ERROR_MESSAGE);
-                        return;
-                }
-                
-                //verificando se a data de nascimento não é no futuro
-                if (dataNascimento.isAfter(hoje)) {
-                    JOptionPane.showMessageDialog(null, "A data de nascimento não pode ser no futuro.", "Erro de Data", JOptionPane.ERROR_MESSAGE);
-                        return;
-                }
-                
-                //verificando se o cpf é válido
-                if (!Enfermeiro.isCpfValido(cpf)) {
-                    JOptionPane.showMessageDialog(null, "CPF inválido", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
-                        return;
-                }
+        JOptionPane.showMessageDialog(null, "Enfermeiro " + nome + " cadastrado com sucesso no setor " + setor, "Cadastro concluído.", JOptionPane.INFORMATION_MESSAGE);
 
-                //Verificando se o coren é válido
-                if (!isCoren(coren)){
-                    JOptionPane.showMessageDialog(null, "Formato do COREN incorreto", "Erro de COREN", JOptionPane.ERROR_MESSAGE);
-                    btnSalvarCadastroEnfermeiro.setEnabled(true);
-                    return;
-                }
-                
-                String senhaEnfermeiro;
-                
-                senhaEnfermeiro = nome.substring(0,1).toUpperCase() + cpf;
-                
-
-                Enfermeiro enfermeiro = new Enfermeiro(nome, cpf, dataNascimento, coren, setor);
-                salvarNoArquivo(enfermeiro);
-
-                JOptionPane.showMessageDialog(null, "Enfermeiro " + nome + " cadastro com sucesso no setor " + setor, "Cadastro concluído", JOptionPane.INFORMATION_MESSAGE);
-
-                txtNomeCadastroEnfermeiro.setText("");
-                txtSetorCadastroEnfermeiro.setText("");
-                txtCorenCadastroEnfermeiro.setText("");
-                txtDataNascimentoCadastroEnfermeiro.setText("//");
-                txtCpfCadastroEnfermeiro.setText("");   
-                dispose();
-                TelaEnfermeiro tela = new TelaEnfermeiro();
-                tela.setVisible(true);
-            }
-            
-            catch(DateTimeParseException e){
-                JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/YYYY.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
-                btnSalvarCadastroEnfermeiro.setEnabled(true);
-
-
-            }
-        }
+        // Limpando os campos após o cadastro
+        txtNomeCadastroEnfermeiro.setText("");
+        txtSetorCadastroEnfermeiro.setText("");
+        txtCorenCadastroEnfermeiro.setText("");
+        txtDataNascimentoCadastroEnfermeiro.setText("//");
+        txtCpfCadastroEnfermeiro.setText("");   
+        dispose();
+        TelaEnfermeiro tela = new TelaEnfermeiro();
+        tela.setVisible(true);
+    }
     }//GEN-LAST:event_btnSalvarCadastroEnfermeiroActionPerformed
 
     private void btnCancelarCadastroEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroEnfermeiroActionPerformed
@@ -354,6 +420,8 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
         txtDataNascimentoCadastroEnfermeiro.setText("");
         txtCpfCadastroEnfermeiro.setText("");        
         dispose();
+        TelaEnfermeiro tela = new TelaEnfermeiro();
+        tela.setVisible(true);
     }//GEN-LAST:event_btnCancelarCadastroEnfermeiroActionPerformed
 
     private void btnLimparCadastroEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCadastroEnfermeiroActionPerformed
@@ -364,9 +432,6 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
         txtCpfCadastroEnfermeiro.setText("");
     }//GEN-LAST:event_btnLimparCadastroEnfermeiroActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

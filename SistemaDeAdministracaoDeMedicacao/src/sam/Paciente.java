@@ -10,7 +10,7 @@ public class Paciente extends Pessoa {
         String[] partes = linha.split(";");
         String nome = partes[0].trim();
         String cpf = partes[1].trim();
-        LocalDate dataNascimento = LocalDate.parse(partes[2].trim());
+        String dataNascimento = partes[2].trim();
         float peso = Float.parseFloat(partes[3].trim());
         float altura = Float.parseFloat(partes[4].trim());
         int idade = Integer.parseInt(partes[5].trim());
@@ -27,7 +27,7 @@ public class Paciente extends Pessoa {
     private Prescricao prescricao;
 
     // Construtor
-    public Paciente(float peso, float altura, int idade, String nome, String cpf, LocalDate dataNascimento, String alergia) {
+    public Paciente(float peso, float altura, int idade, String nome, String cpf, String dataNascimento, String alergia) {
         super(nome, cpf, dataNascimento);
         this.peso = peso;
         this.altura = altura;

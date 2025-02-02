@@ -1,5 +1,6 @@
 package sam;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Enfermeiro extends Pessoa{
@@ -10,7 +11,7 @@ public class Enfermeiro extends Pessoa{
         String[] partes = linha.split(";");
         String nome = partes[0].trim();
         String cpf = partes[1].trim();
-        LocalDate dataNascimento = LocalDate.parse(partes[2].trim());
+        String dataNascimento = partes[2].trim();
         String coren = partes[3].trim();
         String setor = partes[4].trim();
 
@@ -21,7 +22,7 @@ public class Enfermeiro extends Pessoa{
     private String setor;
     private String senha;
 
-    public Enfermeiro(String nome, String cpf, LocalDate dataDeNascimento, String coren, String setor) {
+    public Enfermeiro(String nome, String cpf, String dataDeNascimento, String coren, String setor) {
         super(nome, cpf, dataDeNascimento);
         this.coren = coren;
         this.setor = setor;

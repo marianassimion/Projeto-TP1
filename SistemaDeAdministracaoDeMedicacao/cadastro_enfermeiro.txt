@@ -1,10 +1,9 @@
-João Silva;12345678901;2023-05-15;1234-SP;vermelho  
-Carlos Souza;11223344556;2021-06-12;3456-MG;vermelho
-Ana Costa;66778899011;2020-11-30;4567-PR;vermelho
-Lucas Pereira;22334455667;2023-02-25;5678-BA;vermelho
-Fernanda Santos;88990011223;2022-07-19;6789-CE;vermelho
-Rafael Almeida;33445566778;2021-09-05;7890-PE;vermelho
-Juliana Rodrigues;44556677889;2020-12-10;8901-RS;vermelho
-Thiago Andrade Silva;29674486305;1990-03-15;987654-ES;Emergência
-teste alves;29674486305;2020-02-02;123456-RJ;Pediatria
-testudo;29674486305;0001-01-01;12111-RJ;Ortopedia
+João Silva;12345678901;15/05/2023;1234-SP;vermelho  
+Terceira edição;32887987437;20/02/2000;1234-TO;Segundo Teste
+Lucas Pereira;22334455667;15/05/2023;5678-BA;vermelho
+Fernanda Santos;88990011223;15/05/2023;6789-CE;vermelho
+Rafael Almeida;33445566778;15/05/2023;7890-PE;vermelho
+Maria;83562879016;28/02/2020;12345-MA;branco
+Pedro;25263319789;30/03/2003;45678-DF;verde
+Atualizar;75251522258;18/02/2000;7894-CE;Atuali
+Loginzada;83357558920;20/10/2000;1234-TE;Teste

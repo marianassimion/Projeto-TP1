@@ -351,7 +351,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                         return;
                 }
 
-                Paciente paciente = new Paciente (peso, altura, idade, nome, cpf, dataNascimento, alergia);
+                Paciente paciente = new Paciente (peso, altura, idade, nome, cpf, dataNascimentoStr, alergia);
                 salvarNoArquivo(paciente);
                 
                 JOptionPane.showMessageDialog(null, "Paciente "+ nome +" cadastrado com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE);

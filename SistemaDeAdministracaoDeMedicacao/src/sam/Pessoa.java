@@ -5,14 +5,14 @@ import java.time.LocalDate;
 abstract class Pessoa {
     protected String nome;
     protected String cpf;
-    protected LocalDate dataNascimento;
+    protected String dataNascimento;
 
     @Override
     public String toString() {
         return nome + ";" + cpf + ";" + dataNascimento + ';';
     }
     
-    public Pessoa(String nome, String cpf, LocalDate dataNascimento) {
+    public Pessoa(String nome, String cpf, String dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -37,11 +37,11 @@ abstract class Pessoa {
         this.cpf = cpf;
     }
 
-    public LocalDate getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
    
