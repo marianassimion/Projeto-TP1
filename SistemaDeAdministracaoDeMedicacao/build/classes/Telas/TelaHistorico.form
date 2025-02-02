@@ -268,7 +268,7 @@
               </Border>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="30">
+              <Table columnCount="8" rowCount="30">
                 <Column editable="true" title="Enfermeiro" type="java.lang.String">
                   <Data value=""/>
                   <Data value=""/>
@@ -301,6 +301,7 @@
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
+                <Column editable="true" title="COREN" type="java.lang.String"/>
                 <Column editable="true" title="Paciente" type="java.lang.String">
                   <Data value=""/>
                   <Data value=""/>
@@ -333,6 +334,7 @@
                   <Data value="null"/>
                   <Data value="null"/>
                 </Column>
+                <Column editable="true" title="CPF Paciente" type="java.lang.String"/>
                 <Column editable="true" title="Medicamento" type="java.lang.String">
                   <Data value=""/>
                   <Data value=""/>
@@ -435,32 +437,42 @@
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Enfermeiro"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Paciente"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Medicamento"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Dosagem Aplicada"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Unidade de Medida"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Data/Hora"/>
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>

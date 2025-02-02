@@ -174,43 +174,43 @@ public class TelaHistorico extends javax.swing.JFrame {
         tbHistorico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tbHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", "", "", null, "", ""},
-                {"", "", "", null, "", ""},
-                {"", "", "", null, "", ""},
-                {"", "", "", null, "", ""},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {"", null, "", null, "", null, "", ""},
+                {"", null, "", null, "", null, "", ""},
+                {"", null, "", null, "", null, "", ""},
+                {"", null, "", null, "", null, "", ""},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Enfermeiro", "Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"
+                "Enfermeiro", "COREN", "Paciente", "CPF Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -218,14 +218,6 @@ public class TelaHistorico extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbHistorico);
-        if (tbHistorico.getColumnModel().getColumnCount() > 0) {
-            tbHistorico.getColumnModel().getColumn(0).setHeaderValue("Enfermeiro");
-            tbHistorico.getColumnModel().getColumn(1).setHeaderValue("Paciente");
-            tbHistorico.getColumnModel().getColumn(2).setHeaderValue("Medicamento");
-            tbHistorico.getColumnModel().getColumn(3).setHeaderValue("Dosagem Aplicada");
-            tbHistorico.getColumnModel().getColumn(4).setHeaderValue("Unidade de Medida");
-            tbHistorico.getColumnModel().getColumn(5).setHeaderValue("Data/Hora");
-        }
 
         btnAtualizar.setText("Atualizar");
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -329,10 +321,12 @@ public class TelaHistorico extends javax.swing.JFrame {
         historico.carregarHistorico();
         ArrayList<RegistroDeAplicacao> listaHistorico = historico.getHistorico();
         
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"Enfermeiro", "Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Enfermeiro", "Coren", "Paciente", "CPF Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"}, 0);
         for(int i=0; i<listaHistorico.size(); i++) {
             Object linha[] = new Object[]{listaHistorico.get(i).getNomeEnfermeiro(),
+                                        listaHistorico.get(i).getCoren(),
                                         listaHistorico.get(i).getNomePaciente(),
+                                        listaHistorico.get(i).getCpfPaciente(),
                                         listaHistorico.get(i).getNomeMedicamento(),
                                         listaHistorico.get(i).getDosagemAplicada(),
                                         listaHistorico.get(i).getUnidadeDeMedida(),
@@ -344,7 +338,7 @@ public class TelaHistorico extends javax.swing.JFrame {
     }
     
     public void carregarPesquisa(ArrayList<RegistroDeAplicacao> resultadoBusca) {
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"Enfermeiro", "Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Enfermeiro", "Coren", "Paciente", "CPF Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"}, 0);
         for(int i=0; i<resultadoBusca.size(); i++) {
             Object linha[] = new Object[]{resultadoBusca.get(i).getNomeEnfermeiro(),
                                         resultadoBusca.get(i).getNomePaciente(),
