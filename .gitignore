@@ -1,0 +1,5 @@
+# Ignorar arquivos compilados
+SistemaDeAdministracaoDeMedicacao/build/
+
+# Ignorar configurações privadas do NetBeans
+SistemaDeAdministracaoDeMedicacao/nbproject/private/

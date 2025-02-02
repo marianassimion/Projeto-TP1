@@ -4,17 +4,26 @@
  */
 package Telas;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import sam.Historico;
+import sam.RegistroDeAplicacao;
+
 /**
  *
  * @author dioni
  */
 public class TelaHistorico extends javax.swing.JFrame {
+    
+    Historico historico = new Historico();
 
     /**
      * Creates new form TelaHistorico
      */
     public TelaHistorico() {
         initComponents();
+        carregarTabelaHistorico();
     }
 
     /**
@@ -124,7 +133,7 @@ public class TelaHistorico extends javax.swing.JFrame {
                         .addGroup(pnlPesquisaHistoricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboxMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54))))
         );
@@ -165,7 +174,7 @@ public class TelaHistorico extends javax.swing.JFrame {
         tbHistorico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tbHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Dionilton Oliveira Silva", "José Fotocópia Junior", "Insulina",  new Float(123.55), "ml/kg", "06/01/2025 - 16:45:65"},
+                {"", "", "", null, "", ""},
                 {"", "", "", null, "", ""},
                 {"", "", "", null, "", ""},
                 {"", "", "", null, "", ""},
@@ -209,6 +218,14 @@ public class TelaHistorico extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbHistorico);
+        if (tbHistorico.getColumnModel().getColumnCount() > 0) {
+            tbHistorico.getColumnModel().getColumn(0).setHeaderValue("Enfermeiro");
+            tbHistorico.getColumnModel().getColumn(1).setHeaderValue("Paciente");
+            tbHistorico.getColumnModel().getColumn(2).setHeaderValue("Medicamento");
+            tbHistorico.getColumnModel().getColumn(3).setHeaderValue("Dosagem Aplicada");
+            tbHistorico.getColumnModel().getColumn(4).setHeaderValue("Unidade de Medida");
+            tbHistorico.getColumnModel().getColumn(5).setHeaderValue("Data/Hora");
+        }
 
         btnAtualizar.setText("Atualizar");
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -238,7 +255,7 @@ public class TelaHistorico extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAtualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -260,6 +277,7 @@ public class TelaHistorico extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         // TODO add your handling code here:
+        carregarTabelaHistorico();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void txtNomeDoPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeDoPacienteActionPerformed
@@ -304,6 +322,32 @@ public class TelaHistorico extends javax.swing.JFrame {
                 new TelaHistorico().setVisible(true);
             }
         });
+    }
+    
+    public void carregarTabelaHistorico() {
+        
+        RegistroDeAplicacao registro = new RegistroDeAplicacao(
+                "Enfermeiro João", "Paciente Maria", "Paracetamol",
+                500, "mg", LocalDateTime.now()
+        );
+        
+        historico.adicionarRegistro(registro);
+        
+        historico.carregarHistorico();
+        ArrayList<RegistroDeAplicacao> listaHistorico = historico.getHistorico();
+        
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Enfermeiro", "Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"}, 0);
+        for(int i=0; i<listaHistorico.size(); i++) {
+            Object linha[] = new Object[]{listaHistorico.get(i).getNomeEnfermeiro(),
+                                        listaHistorico.get(i).getNomePaciente(),
+                                        listaHistorico.get(i).getNomeMedicamento(),
+                                        listaHistorico.get(i).getDosagemAplicada(),
+                                        listaHistorico.get(i).getUnidadeDeMedida(),
+                                        listaHistorico.get(i).getData()};
+            model.addRow(linha);
+        }
+        
+        tbHistorico.setModel(model);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
