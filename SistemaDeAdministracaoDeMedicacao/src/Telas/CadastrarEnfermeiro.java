@@ -107,7 +107,7 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SAM - SISTEMA DE ADMINISTRAÇÃO DE MEDICAÇÃO");
 
-        jPanel.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel.setBackground(new java.awt.Color(153, 153, 255));
 
         btnSalvarCadastroEnfermeiro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnSalvarCadastroEnfermeiro.setForeground(new java.awt.Color(0, 0, 0));
@@ -194,12 +194,11 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(9, 9, 9)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNomeCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelLayout.createSequentialGroup()
                                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtCorenCadastroEnfermeiro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                                    .addComponent(txtCpfCadastroEnfermeiro, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtCorenCadastroEnfermeiro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCpfCadastroEnfermeiro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
                                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel7)
@@ -211,8 +210,9 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
                                             .addGap(278, 278, 278))
                                         .addGroup(jPanelLayout.createSequentialGroup()
                                             .addGap(74, 74, 74)
-                                            .addComponent(txtSetorCadastroEnfermeiro))))))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                                            .addComponent(txtSetorCadastroEnfermeiro, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)))))
+                            .addComponent(txtNomeCadastroEnfermeiro))))
+                .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelLayout.createSequentialGroup()
                     .addGap(44, 44, 44)
@@ -238,7 +238,7 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
                     .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(txtCorenCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelarCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvarCadastroEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -318,6 +318,11 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
                     return;
                 }
                 
+                String senhaEnfermeiro;
+                
+                senhaEnfermeiro = nome.substring(0,1).toUpperCase() + cpf;
+                
+
                 Enfermeiro enfermeiro = new Enfermeiro(nome, cpf, dataNascimento, coren, setor);
                 salvarNoArquivo(enfermeiro);
 

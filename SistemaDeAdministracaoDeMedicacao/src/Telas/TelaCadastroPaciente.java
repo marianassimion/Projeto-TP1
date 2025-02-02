@@ -2,13 +2,13 @@ package Telas;
 import sam.Paciente;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.Period;
 import javax.swing.JOptionPane;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class TelaCadastroPaciente extends javax.swing.JFrame {
     
-    //static ArrayList<Paciente> listaPacientes;
     private static final String BANCO_DADOS = "cadastro_pacientes.txt";
     
     public TelaCadastroPaciente() {
@@ -27,10 +27,9 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         txtDataNascimentoPacienteCadastro.setText("//");
         txtPesoPacienteCadastro.setText("");
         txtAlturaPacienteCadastro.setText("");
-        txtIdadePacienteCadastro.setText("");
         cbAlergiasPacienteCadastro.setSelectedItem("Selecione");
         listarArquivo();
-
+        
 
     }
     public static void salvarNoArquivo(Paciente paciente){
@@ -64,39 +63,24 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
             System.out.println("Erro ao ler os dados: " + e.getMessage());
         }}
     
-
-    //validação de cpf aquii
-
-    public static boolean isCpfValido(String cpf) {
-        // Verificando se tem 11 dígitos
-        if (cpf.length() != 11 || cpf.matches("(\\d)\\1{10}")) {
-            return false;
-        }
-
-        try {
-            // Cálculo do primeiro dígito verificador
-            int soma = 0;
-            for (int i = 0; i < 9; i++) {
-                soma += (cpf.charAt(i) - '0') * (10 - i);
+    private static boolean isNomeValido(String nome) {
+        for (int i = 0; i < nome.length(); i++){
+            char c = nome.charAt(i);
+            if (!Character.isLetter(c) && c != ' ') {
+                return false; // Se encontrar um caractere inválido, retorna falso
             }
-            int primeiroDigito = 11 - (soma % 11);
-            if (primeiroDigito >= 10) primeiroDigito = 0;
-
-            // Cálculo do segundo dígito verificador
-            soma = 0;
-            for (int i = 0; i < 10; i++) {
-                soma += (cpf.charAt(i) - '0') * (11 - i);
-            }
-            int segundoDigito = 11 - (soma % 11);
-            if (segundoDigito >= 10) segundoDigito = 0;
-
-            // Comparando com os dígitos informados
-            return (cpf.charAt(9) - '0' == primeiroDigito) && (cpf.charAt(10) - '0' == segundoDigito);
-        } catch (Exception e) {
-            return false;
         }
+        return true;
     }
 
+    private static int calcularIdade(LocalDate dataNascimento){
+        LocalDate hoje = LocalDate.now();  // Data atual
+        Period periodo = Period.between(dataNascimento, hoje); 
+        int idade  = periodo.getYears();
+            return idade;  // Retorna a quantidade de anos
+    }
+    
+    //validação de cpf aqui
     private static boolean isCpf(String cpf){
         if ((cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222") || cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555") || cpf.equals("66666666666") || cpf.equals("77777777777") || cpf.equals("88888888888") || cpf.equals("99999999999") || (cpf.length() != 11))){
             return(false);
@@ -104,7 +88,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         else{
             return (true);
         }
-
     }
     
     
@@ -122,11 +105,9 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         txtNomePacienteCadastro = new javax.swing.JTextField();
         txtCpfPacienteCadastro = new javax.swing.JTextField();
         txtDataNascimentoPacienteCadastro = new javax.swing.JFormattedTextField();
-        txtIdadePacienteCadastro = new javax.swing.JTextField();
         txtAlturaPacienteCadastro = new javax.swing.JTextField();
         txtPesoPacienteCadastro = new javax.swing.JTextField();
         btnLimparDadosCadastroPaciente = new javax.swing.JButton();
@@ -193,10 +174,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Alergias*");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Idade*");
-
         txtNomePacienteCadastro.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         txtNomePacienteCadastro.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -204,9 +181,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         txtCpfPacienteCadastro.setForeground(new java.awt.Color(0, 0, 0));
 
         txtDataNascimentoPacienteCadastro.setToolTipText("dd/mm/ano");
-
-        txtIdadePacienteCadastro.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        txtIdadePacienteCadastro.setForeground(new java.awt.Color(0, 0, 0));
 
         txtAlturaPacienteCadastro.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         txtAlturaPacienteCadastro.setForeground(new java.awt.Color(0, 0, 0));
@@ -235,7 +209,13 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSalvarCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSalvarCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbAlergiasPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
@@ -257,22 +237,14 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                                 .addComponent(btnCancelarCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnLimparDadosCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cbAlergiasPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCpfPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNomePacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtIdadePacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCpfPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomePacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -288,19 +260,16 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                     .addComponent(txtCpfPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(txtDataNascimentoPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtIdadePacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPesoPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txtAlturaPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cbAlergiasPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(104, 104, 104)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(cbAlergiasPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(172, 172, 172)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,7 +302,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         txtDataNascimentoPacienteCadastro.setText("");
         txtPesoPacienteCadastro.setText("");
         txtAlturaPacienteCadastro.setText("");
-        txtIdadePacienteCadastro.setText("");
         cbAlergiasPacienteCadastro.setSelectedItem("Selecione");
     }//GEN-LAST:event_btnLimparDadosCadastroPacienteActionPerformed
 
@@ -344,7 +312,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     private void btnSalvarCadastroPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCadastroPacienteActionPerformed
         // verificação de campo vazio
 
-        if (txtDataNascimentoPacienteCadastro.getText().equals("") || txtAlturaPacienteCadastro.getText().equals("")|| txtCpfPacienteCadastro.getText().equals("")|| txtIdadePacienteCadastro.getText().equals("") || txtNomePacienteCadastro.getText().equals("") || txtPesoPacienteCadastro.getText().equals("") || cbAlergiasPacienteCadastro.getSelectedItem().equals("Selecione")){
+        if (txtDataNascimentoPacienteCadastro.getText().equals("") || txtAlturaPacienteCadastro.getText().equals("")|| txtCpfPacienteCadastro.getText().equals("") ||txtNomePacienteCadastro.getText().equals("") || txtPesoPacienteCadastro.getText().equals("") || cbAlergiasPacienteCadastro.getSelectedItem().equals("Selecione")){
             JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos", "Aviso", JOptionPane.PLAIN_MESSAGE);
         }
         
@@ -354,34 +322,35 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 String cpf = txtCpfPacienteCadastro.getText();
                 String dataNascimentoStr = txtDataNascimentoPacienteCadastro.getText();
                 String alergia = cbAlergiasPacienteCadastro.getSelectedItem().toString();
+                String pesoStr = txtPesoPacienteCadastro.getText().replace(",", ".");
+                String alturaStr =txtAlturaPacienteCadastro.getText().replace(",", ".");
                 
-                float peso = Float.valueOf(txtPesoPacienteCadastro.getText());
-                float altura = Float.valueOf(txtAlturaPacienteCadastro.getText());
-                int idade = Integer.parseInt(txtIdadePacienteCadastro.getText());
+                float peso = Float.valueOf(pesoStr);
+                float altura = Float.valueOf(alturaStr);
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definindo o formato da data
                 LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-                
                 LocalDate hoje = LocalDate.now();
+
+                int idade = calcularIdade(dataNascimento);
 
                 // Removendo caracteres não numéricos
                 cpf = cpf.replaceAll("[^0-9]", "");
 
+                if (!isNomeValido(nome)){
+                    JOptionPane.showMessageDialog(null, "O nome não deve conter números ou caracteres especiais", "Nome inválido", JOptionPane.ERROR_MESSAGE);
+                        return;
+                }
                 
                 if (dataNascimento.isAfter(hoje)) {
                     JOptionPane.showMessageDialog(null, "A data de nascimento não pode ser no futuro.", "Erro de Data", JOptionPane.ERROR_MESSAGE);
                         return;}
 
                 if (isCpf(cpf) == false) {
-                    JOptionPane.showMessageDialog(null, "CPF deve conter exatamente 11 dígitos numéricos.", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
-                        return;
-                }
-                
-                if (isCpfValido(cpf) == false) {
                     JOptionPane.showMessageDialog(null, "Insira um CPF válido", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
                         return;
                 }
-                
+
                 Paciente paciente = new Paciente (peso, altura, idade, nome, cpf, dataNascimento, alergia);
                 salvarNoArquivo(paciente);
                 
@@ -392,7 +361,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 txtDataNascimentoPacienteCadastro.setText("");
                 txtPesoPacienteCadastro.setText("");
                 txtAlturaPacienteCadastro.setText("");
-                txtIdadePacienteCadastro.setText("");
                 cbAlergiasPacienteCadastro.setSelectedItem("Selecione");
                 dispose();
                 
@@ -402,7 +370,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/YYYY.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
             }
             catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "Por favor, insira valores válidos para peso, altura e idade.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Os campos peso e altura devem conter apenas números e '.' ", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
             } 
         }
         listarArquivo();
@@ -448,7 +416,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbAlergiasPacienteCadastro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -457,7 +424,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     private javax.swing.JTextField txtAlturaPacienteCadastro;
     private javax.swing.JTextField txtCpfPacienteCadastro;
     private javax.swing.JFormattedTextField txtDataNascimentoPacienteCadastro;
-    private javax.swing.JTextField txtIdadePacienteCadastro;
     private javax.swing.JTextField txtNomePacienteCadastro;
     private javax.swing.JTextField txtPesoPacienteCadastro;
     // End of variables declaration//GEN-END:variables
