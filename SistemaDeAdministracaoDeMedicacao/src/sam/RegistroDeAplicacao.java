@@ -1,6 +1,7 @@
 package sam;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RegistroDeAplicacao {
     private String nomeEnfermeiro;
@@ -9,6 +10,8 @@ public class RegistroDeAplicacao {
     private float dosagemAplicada;
     private String unidadeDeMedida;
     private LocalDateTime data;
+    
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     public String getNomeEnfermeiro() {
         return nomeEnfermeiro;
@@ -41,5 +44,15 @@ public class RegistroDeAplicacao {
         this.dosagemAplicada = dosagemAplicada;
         this.unidadeDeMedida = unidadeDeMedida;
         this.data = data;
+    }
+    
+    public static RegistroDeAplicacao fromString(String linha) {
+        String[] partes = linha.split(";");
+        return new RegistroDeAplicacao(partes[0], partes[1], partes[2], Float.parseFloat(partes[3]), partes[4], LocalDateTime.parse(partes[5], FORMATTER));
+    }
+    
+    @Override
+    public String toString() {
+        return nomeEnfermeiro + ";" + nomePaciente + ";" + nomeMedicamento + ";" + dosagemAplicada + ";" + unidadeDeMedida + ";" + data.format(FORMATTER);
     }
 }
