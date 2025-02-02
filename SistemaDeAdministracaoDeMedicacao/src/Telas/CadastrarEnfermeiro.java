@@ -334,6 +334,8 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
                 txtDataNascimentoCadastroEnfermeiro.setText("//");
                 txtCpfCadastroEnfermeiro.setText("");   
                 dispose();
+                TelaEnfermeiro tela = new TelaEnfermeiro();
+                tela.setVisible(true);
             }
             
             catch(DateTimeParseException e){

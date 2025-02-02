@@ -2,6 +2,7 @@ package Telas;
 import Telas.CadastrarEnfermeiro;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +15,8 @@ public class TelaEnfermeiro extends javax.swing.JFrame {
     public TelaEnfermeiro() {
 
         initComponents();
+        setLocationRelativeTo(null); //muda o local de origem da tela
+
         btNovo.setEnabled(true);
         btEditar.setEnabled(false);
         btExcluir.setEnabled(false);
@@ -264,7 +267,6 @@ public class TelaEnfermeiro extends javax.swing.JFrame {
 
     tblEnfermeiros.setModel(modelo);
 }
-
     
     private void tblEnfermeirosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEnfermeirosMouseClicked
         // a tabela de clientes, ao ser clicada:
@@ -286,6 +288,8 @@ public class TelaEnfermeiro extends javax.swing.JFrame {
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         new CadastrarEnfermeiro().setVisible(true);
+        dispose();
+
 
 // TODO add your handling code here:
     }//GEN-LAST:event_btNovoActionPerformed
@@ -299,16 +303,18 @@ public class TelaEnfermeiro extends javax.swing.JFrame {
             String dataNascimento = (String) tblEnfermeiros.getValueAt(i, 2);
             String coren = (String) tblEnfermeiros.getValueAt(i, 3);
             String setor = (String) tblEnfermeiros.getValueAt(i, 4);
-            
             TelaEditarEnfermeiro tela = new TelaEditarEnfermeiro(nome, cpf, dataNascimento, coren, setor);
             tela.setVisible(true);
+            dispose();
+
             
-            // Obtém a referência ao JFrame pai
         }
         
         else{
             JOptionPane.showMessageDialog(this, "Selecione um enfermeiro para editar.");
         }
+        //carregarTabelaEnfermeiros();
+        dispose();
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void lblPesquisarNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblPesquisarNomeActionPerformed
