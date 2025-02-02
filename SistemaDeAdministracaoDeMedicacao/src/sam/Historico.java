@@ -18,6 +18,8 @@ public class Historico {
         //todo: implementar lógica do método
         return (ArrayList<RegistroDeAplicacao>) historico.stream().filter(r -> r.getNomePaciente().equals(nomePaciente)).collect(Collectors.toList());
     }
+    
+    //public ArrayList<RegistroDeAplicacao> filtrarRegistro ()
 
     public ArrayList<RegistroDeAplicacao> buscarPorDia (LocalDate data) {
         //todo: implementar lógica do método
