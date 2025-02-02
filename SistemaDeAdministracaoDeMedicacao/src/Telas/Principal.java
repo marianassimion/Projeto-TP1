@@ -66,12 +66,15 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
         txtLogin.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        txtLogin.setForeground(new java.awt.Color(0, 0, 0));
         txtLogin.setText("Login");
 
-        txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        txtUsuario.setForeground(new java.awt.Color(0, 0, 0));
         txtUsuario.setText("Usuário");
 
-        txtSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtSenha.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        txtSenha.setForeground(new java.awt.Color(0, 0, 0));
         txtSenha.setText("Senha");
 
         labelSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +136,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(labelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(btEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,8 +148,8 @@ public class Principal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();

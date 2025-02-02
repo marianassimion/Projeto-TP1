@@ -116,7 +116,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         setTitle("Cadastro de Pacientes");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
         btnSalvarCadastroPaciente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnSalvarCadastroPaciente.setForeground(new java.awt.Color(0, 0, 0));
