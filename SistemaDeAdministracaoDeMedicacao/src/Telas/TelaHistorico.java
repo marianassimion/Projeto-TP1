@@ -273,6 +273,7 @@ public class TelaHistorico extends javax.swing.JFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
+        carregarPesquisa(historico.buscarPorPaciente(txtNomeDoPaciente.getText()));
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
@@ -325,14 +326,6 @@ public class TelaHistorico extends javax.swing.JFrame {
     }
     
     public void carregarTabelaHistorico() {
-        
-        RegistroDeAplicacao registro = new RegistroDeAplicacao(
-                "Enfermeiro João", "Paciente Maria", "Paracetamol",
-                500, "mg", LocalDateTime.now()
-        );
-        
-        historico.adicionarRegistro(registro);
-        
         historico.carregarHistorico();
         ArrayList<RegistroDeAplicacao> listaHistorico = historico.getHistorico();
         
@@ -344,6 +337,21 @@ public class TelaHistorico extends javax.swing.JFrame {
                                         listaHistorico.get(i).getDosagemAplicada(),
                                         listaHistorico.get(i).getUnidadeDeMedida(),
                                         listaHistorico.get(i).getData()};
+            model.addRow(linha);
+        }
+        
+        tbHistorico.setModel(model);
+    }
+    
+    public void carregarPesquisa(ArrayList<RegistroDeAplicacao> resultadoBusca) {
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Enfermeiro", "Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"}, 0);
+        for(int i=0; i<resultadoBusca.size(); i++) {
+            Object linha[] = new Object[]{resultadoBusca.get(i).getNomeEnfermeiro(),
+                                        resultadoBusca.get(i).getNomePaciente(),
+                                        resultadoBusca.get(i).getNomeMedicamento(),
+                                        resultadoBusca.get(i).getDosagemAplicada(),
+                                        resultadoBusca.get(i).getUnidadeDeMedida(),
+                                        resultadoBusca.get(i).getData()};
             model.addRow(linha);
         }
         

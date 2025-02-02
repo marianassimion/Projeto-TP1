@@ -5,6 +5,7 @@ import java.nio.file.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
 public class Historico {
@@ -13,9 +14,9 @@ public class Historico {
     
     private ArrayList<RegistroDeAplicacao> historico;
 
-    public ArrayList<RegistroDeAplicacao> buscarPorPaciente (String cpfPaciente) {
+    public ArrayList<RegistroDeAplicacao> buscarPorPaciente (String nomePaciente) {
         //todo: implementar lógica do método
-        return this.historico;
+        return (ArrayList<RegistroDeAplicacao>) historico.stream().filter(r -> r.getNomePaciente().equals(nomePaciente)).collect(Collectors.toList());
     }
 
     public ArrayList<RegistroDeAplicacao> buscarPorDia (LocalDate data) {

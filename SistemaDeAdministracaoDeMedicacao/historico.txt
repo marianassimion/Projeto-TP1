@@ -46,3 +46,7 @@ Enfermeiro João;Paciente Maria;Paracetamol;500.0;mg;02/02/2025 03:21:06
 Enfermeiro João;Paciente Maria;Paracetamol;500.0;mg;02/02/2025 03:21:55
 Enfermeiro João;Paciente Maria;Paracetamol;500.0;mg;02/02/2025 03:21:57
 Enfermeiro João;Paciente Maria;Paracetamol;500.0;mg;02/02/2025 03:22:10
+Enfermeiro João;Paciente Maria;Paracetamol;500.0;mg;02/02/2025 03:28:59
+Enfermeiro João;Paciente Maria;Paracetamol;500.0;mg;02/02/2025 03:29:01
+Enfermeiro João;Paciente Maria;Paracetamol;500.0;mg;02/02/2025 03:29:51
+Enfermeiro João;Paciente Maria;Paracetamol;500.0;mg;02/02/2025 03:29:53
