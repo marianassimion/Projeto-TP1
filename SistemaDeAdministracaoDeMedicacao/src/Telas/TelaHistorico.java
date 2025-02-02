@@ -4,7 +4,9 @@
  */
 package Telas;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import sam.Historico;
@@ -17,6 +19,7 @@ import sam.RegistroDeAplicacao;
 public class TelaHistorico extends javax.swing.JFrame {
     
     Historico historico = new Historico();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Creates new form TelaHistorico
@@ -264,8 +267,23 @@ public class TelaHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        // TODO add your handling code here:
-        carregarPesquisa(historico.buscarPorPaciente(txtNomeDoPaciente.getText()));
+        
+        String nomeEnfermeiro = (txtNomeEnfermeiro.getText().trim().isEmpty()) ? null : txtNomeEnfermeiro.getText();
+        String coren = (txtCoren.getText().trim().isEmpty()) ? null : txtCoren.getText();
+        String nomePaciente = (txtNomeDoPaciente.getText().trim().isEmpty()) ? null : txtNomeDoPaciente.getText();
+        String cpfPaciente = (txtCpfDoPaciente.getText().trim().isEmpty()) ? null : txtCpfDoPaciente.getText();
+        String nomeMedicamento = (((String) cboxMedicamento.getSelectedItem()).trim().equals("vazio")) ? null : ((String) cboxMedicamento.getSelectedItem()).trim();
+        LocalDate data = (txtData.getText().trim().isEmpty()) ? null : LocalDate.parse(txtData.getText(), formatter);
+        
+        carregarPesquisa(historico.filtrarRegistro(nomeEnfermeiro, coren, nomePaciente, cpfPaciente, nomeMedicamento, data));
+        
+        System.out.println("nomeEnfermeiro:" + nomeEnfermeiro);
+        System.out.println("coren:" + coren);
+        System.out.println("nomePaciente:" + nomePaciente);
+        System.out.println("cpfPaciente:" + cpfPaciente);
+        System.out.println("nomeMedicamento:" + nomeMedicamento);
+        System.out.println("data:" + data.toString());
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
@@ -341,7 +359,9 @@ public class TelaHistorico extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(new Object[]{"Enfermeiro", "Coren", "Paciente", "CPF Paciente", "Medicamento", "Dosagem Aplicada", "Unidade de Medida", "Data/Hora"}, 0);
         for(int i=0; i<resultadoBusca.size(); i++) {
             Object linha[] = new Object[]{resultadoBusca.get(i).getNomeEnfermeiro(),
+                                        resultadoBusca.get(i).getCoren(),
                                         resultadoBusca.get(i).getNomePaciente(),
+                                        resultadoBusca.get(i).getCpfPaciente(),
                                         resultadoBusca.get(i).getNomeMedicamento(),
                                         resultadoBusca.get(i).getDosagemAplicada(),
                                         resultadoBusca.get(i).getUnidadeDeMedida(),

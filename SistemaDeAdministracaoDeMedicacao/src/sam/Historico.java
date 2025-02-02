@@ -19,7 +19,16 @@ public class Historico {
         return (ArrayList<RegistroDeAplicacao>) historico.stream().filter(r -> r.getNomePaciente().equals(nomePaciente)).collect(Collectors.toList());
     }
     
-    //public ArrayList<RegistroDeAplicacao> filtrarRegistro ()
+    public ArrayList<RegistroDeAplicacao> filtrarRegistro(String nomeEnfermeiro, String coren, String nomePaciente, String cpfPaciente, String nomeMedicamento, LocalDate dataEspecifica) {
+        return (ArrayList<RegistroDeAplicacao>) historico.stream()
+        .filter(r -> (nomeEnfermeiro == null || r.getNomeEnfermeiro().equalsIgnoreCase(nomeEnfermeiro)))
+        .filter(r -> (coren == null || r.getCoren().equalsIgnoreCase(coren)))
+        .filter(r -> (nomePaciente == null || r.getNomePaciente().equalsIgnoreCase(nomePaciente)))
+        .filter(r -> (cpfPaciente == null || r.getCpfPaciente().equals(cpfPaciente)))
+        .filter(r -> (nomeMedicamento == null || r.getNomeMedicamento().equalsIgnoreCase(nomeMedicamento)))
+        .filter(r -> (dataEspecifica == null || r.getData().toLocalDate().equals(dataEspecifica)))
+        .collect(Collectors.toList());
+    }
 
     public ArrayList<RegistroDeAplicacao> buscarPorDia (LocalDate data) {
         //todo: implementar lógica do método
