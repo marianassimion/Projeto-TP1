@@ -6,6 +6,8 @@ public class Principal extends javax.swing.JFrame {
     private static final String BANCO_DADOS = "login.txt";
     public Principal() {
         initComponents();
+        setLocationRelativeTo(null); //muda o local de origem da tela
+
     }
 
     public static boolean verificarCredenciais(String login, String senha){

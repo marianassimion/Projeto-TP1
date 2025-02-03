@@ -16,7 +16,7 @@ public class TelaEditarEnfermeiro extends javax.swing.JFrame {
     
     public TelaEditarEnfermeiro(String nome,String cpf, String dataNascimento, String coren, String setor) {
         initComponents();
-         setLocationRelativeTo(null); //muda o local de origem da tela
+        setLocationRelativeTo(null); //muda o local de origem da tela
 
         txtNomeEditarEnfermeiro.setText(nome);
         txtCorenEditarEnfermeiro.setText(coren);
@@ -49,6 +49,23 @@ public class TelaEditarEnfermeiro extends javax.swing.JFrame {
         }
         
         return true;
+    }
+    private boolean cpfJaCadastrado(String cpf) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(BANCO_DADOS))) {
+        String linha;
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            if (partes.length >= 2) {
+                String cpfArquivo = partes[1].trim();
+                if (cpfArquivo.equals(cpf)) {
+                    return true; // CPF já cadastrado
+                }
+            }
+        }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao verificar CPF: " + e.getMessage());
+    }
+    return false; // CPF não encontrado
     }
     private void atualizarDados(int linhaEditada, String novoNome, String novoCpf, String novoDataNascimento, String novoCoren, String novoSetor){
             try {
@@ -278,6 +295,10 @@ public class TelaEditarEnfermeiro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "O nome não deve conter números ou caracteres especiais", "Nome inválido", JOptionPane.ERROR_MESSAGE);
                         return;
                 }
+                if (cpfJaCadastrado(novoCpf)) {
+                   JOptionPane.showMessageDialog(this, "O CPF informado já está cadastrado!");
+                    return;
+        }
                 
                 //verificando se a data de nascimento não é no futuro
                 if (novoDataNascimento.isAfter(hoje)) {

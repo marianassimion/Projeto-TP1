@@ -221,7 +221,7 @@
                       <Component id="lblPesquisarNome" max="32767" attributes="0"/>
                       <Component id="lblPesquisarSetor" min="-2" pref="310" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" pref="33" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" pref="29" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="txtUNome2" min="-2" max="-2" attributes="0"/>
@@ -324,7 +324,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Enfermeiro"/>
+            <Property name="text" type="java.lang.String" value="Enfermeiros"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btPesquisar">

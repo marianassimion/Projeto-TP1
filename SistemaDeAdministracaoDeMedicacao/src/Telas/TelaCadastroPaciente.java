@@ -89,7 +89,23 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
             return (true);
         }
     }
-    
+    private boolean cpfJaCadastrado(String cpf) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(BANCO_DADOS))) {
+        String linha;
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            if (partes.length >= 2) {
+                String cpfArquivo = partes[1].trim();
+                if (cpfArquivo.equals(cpf)) {
+                    return true; // CPF já cadastrado
+                }
+            }
+        }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Erro ao verificar CPF: " + e.getMessage());
+    }
+    return false; // CPF não encontrado
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -220,17 +236,17 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                                 .addGap(30, 30, 30)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txtAlturaPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtPesoPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDataNascimentoPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtDataNascimentoPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtAlturaPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(69, 69, 69)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtPesoPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCancelarCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,7 +260,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCpfPacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNomePacienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,8 +290,10 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                     .addComponent(btnSalvarCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimparDadosCadastroPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
+
+        txtCpfPacienteCadastro.getAccessibleContext().setAccessibleName("000.000.000-00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -350,7 +368,11 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Insira um CPF válido", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
                         return;
                 }
-
+                
+                if (cpfJaCadastrado(cpf)) {
+                    JOptionPane.showMessageDialog(this, "O CPF informado já está cadastrado!");
+                    return;
+                }
                 Paciente paciente = new Paciente (peso, altura, idade, nome, cpf, dataNascimentoStr, alergia);
                 salvarNoArquivo(paciente);
                 
