@@ -5,6 +5,13 @@ public class Penicilina extends Medicamento{
     private String unidadeDeMedida;
     private int formulacao;
     private int quantidadeDeAgua;
+    
+    private String[] dominioFormulacao = {"5.000.000 UI","10.000.000 UI"};
+
+    public Penicilina(String descricao, String unidadeDeMedida, Prescricao prescricao) {
+        super("Penicilina", descricao, prescricao);
+        this.unidadeDeMedida = unidadeDeMedida;
+    }
 
     public String getUnidadeDeMedida() {
         return unidadeDeMedida;
@@ -30,9 +37,11 @@ public class Penicilina extends Medicamento{
         this.quantidadeDeAgua = quantidadeDeAgua;
     }
 
+    
+    
+
     @Override
-    public float calculoDeDosagem() {
-        //todo: implementar lógica do método
-        return 1;
+    public float calculoDeDosagem(double dosagem) {
+        return (float)((10*dosagem) / (double)formulacao);
     }
 }

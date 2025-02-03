@@ -3,10 +3,8 @@ package sam;
 import java.io.*;
 import java.nio.file.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import javax.swing.table.DefaultTableModel;
 
 public class Historico {
     

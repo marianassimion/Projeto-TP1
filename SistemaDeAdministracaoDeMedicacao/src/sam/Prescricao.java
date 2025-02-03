@@ -9,6 +9,19 @@ public class Prescricao {
     private String unidadeDeMedidada;
     private LocalDate dataDeValidade;
     private String Observacao;
+    
+    // INÍCIO IMPLEMENTAÇÃO MOCKADA PARA VALIDAÇÃO DE CÁLCULO DE DOSAGEM
+    private Medicamento medicamento;
+
+    public Medicamento getMedicamento() {
+        return medicamento;
+    }
+
+    public void setMedicamento(Medicamento medicamento) {
+        this.medicamento = medicamento;
+    }
+    
+    // FIM DA IMPLEMENTAÇÃO MOCKADA PARA VALIDAÇÃO DE CÁLCULO DE DOSAGEM
 
     // construtor
     public Prescricao(float dosagem, String unidadeDeMedidada, LocalDate dataDeValidade, String Observacao) {

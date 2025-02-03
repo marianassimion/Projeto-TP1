@@ -6,6 +6,10 @@ public class Insulina extends Medicamento{
     private int frascoDisponivel;
     private String unidadeDeMedida;
 
+    public Insulina(String nomeMedicamento, String descricao, Prescricao prescricao) {
+        super(nomeMedicamento, descricao, prescricao);
+    }
+
     public String getTipoDeSeringa() {
         return tipoDeSeringa;
     }
@@ -39,7 +43,7 @@ public class Insulina extends Medicamento{
     }
 
     @Override
-    public float calculoDeDosagem() {
+    public float calculoDeDosagem(double dosagem) {
         //todo: implementar lógica do método
         return 1;
     }

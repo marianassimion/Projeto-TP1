@@ -4,18 +4,55 @@
  */
 package Telas;
 
+import java.util.Optional;
+import sam.CalculoDeDosagem;
+import sam.Medicamento;
+import sam.Paciente;
+import sam.Penicilina;
+
 /**
  *
  * @author dioni
  */
 public class TelaCalculoDeDosagem extends javax.swing.JFrame {
+    
+    CalculoDeDosagem calculoDeDosagem = new CalculoDeDosagem();
 
     /**
      * Creates new form CalculoDeDosagem
      */
     public TelaCalculoDeDosagem() {
         initComponents();
+        carregarListaPacientes();
+        btnCalcular.setEnabled(false);
+        
     }
+    
+    public void carregarListaPacientes() {
+        for (Paciente p : calculoDeDosagem.getPacientes()) {
+            cboxPacientes.addItem(p.getNome() + "," + p.getCpf());
+        }
+    }
+    
+    public void setarCamposEspecializados(Paciente paciente) {
+        switch (paciente.getPrescricao().getMedicamento().getNomeMedicamento()) {
+            case "Penicilina":
+                lblCampo1.setText("Selecione tipo de frasco:");
+                cbox01.addItem("5.000.000 UI");
+                cbox01.addItem("10.000.000 UI");
+                btnConfirmarPaciente.setEnabled(false);
+                lblCampo2.setText("Valor prescrito:");
+                txtPrescricao.setText(String.valueOf(paciente.getPrescricao().getDosagem()));
+                txtPrescricao.setEditable(false);
+                lblCampo3.setEnabled(false);
+                lblCampo4.setEnabled(false);
+                txtFormulacao.setEnabled(false);
+                txtQuantidadeDeAguaEmMl.setEnabled(false);
+                btnCalcular.setEnabled(true);
+                break;
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,20 +65,23 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
 
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        cboxMedicamentos = new javax.swing.JComboBox<>();
+        cboxPacientes = new javax.swing.JComboBox<>();
         jSeparator2 = new javax.swing.JSeparator();
         pnlDadosCalculo = new javax.swing.JPanel();
-        lblDiluicao = new javax.swing.JLabel();
-        lblUnidadeDeMedida = new javax.swing.JLabel();
-        lblFormulacao = new javax.swing.JLabel();
-        lblQuantidadeDeAguaEmMl = new javax.swing.JLabel();
-        txtDiluicao = new javax.swing.JTextField();
-        txtUnidadeDeMedida = new javax.swing.JTextField();
+        lblCampo1 = new javax.swing.JLabel();
+        lblCampo2 = new javax.swing.JLabel();
+        lblCampo3 = new javax.swing.JLabel();
+        lblCampo4 = new javax.swing.JLabel();
+        txtPrescricao = new javax.swing.JTextField();
         txtFormulacao = new javax.swing.JTextField();
         txtQuantidadeDeAguaEmMl = new javax.swing.JTextField();
+        cbox01 = new javax.swing.JComboBox<>();
         btnCalcular = new javax.swing.JButton();
         lblValorCalculado = new javax.swing.JLabel();
         lblResultadoCalculo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtMedicamento = new javax.swing.JTextField();
+        btnConfirmarPaciente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SAM - Cálculo de Dosagem");
@@ -58,37 +98,34 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Medicamento: ");
+        jLabel1.setText("Medicamento:");
 
-        cboxMedicamentos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        cboxMedicamentos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Penicilina", "Benzetacil", "Heparina", "Insulina", "Dipirona", "Paracetamol" }));
-        cboxMedicamentos.addActionListener(new java.awt.event.ActionListener() {
+        cboxPacientes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        cboxPacientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "vazio" }));
+        cboxPacientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxPacientesMouseClicked(evt);
+            }
+        });
+        cboxPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboxMedicamentosActionPerformed(evt);
+                cboxPacientesActionPerformed(evt);
             }
         });
 
         pnlDadosCalculo.setBorder(javax.swing.BorderFactory.createTitledBorder("Daods para realização do cálculo"));
 
-        lblDiluicao.setText("diluição:");
+        lblCampo1.setText("diluição:");
 
-        lblUnidadeDeMedida.setText("unidade de medida:");
+        lblCampo2.setText("unidade de medida:");
 
-        lblFormulacao.setText("formulação:");
+        lblCampo3.setText("formulação:");
 
-        lblQuantidadeDeAguaEmMl.setText("quantidade de água em ml:");
+        lblCampo4.setText("quantidade de água em ml:");
 
-        txtDiluicao.setEditable(false);
-        txtDiluicao.setText("10");
-        txtDiluicao.addActionListener(new java.awt.event.ActionListener() {
+        txtPrescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDiluicaoActionPerformed(evt);
-            }
-        });
-
-        txtUnidadeDeMedida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUnidadeDeMedidaActionPerformed(evt);
+                txtPrescricaoActionPerformed(evt);
             }
         });
 
@@ -105,38 +142,38 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
             .addGroup(pnlDadosCalculoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDiluicao)
-                    .addComponent(lblQuantidadeDeAguaEmMl)
-                    .addComponent(lblFormulacao)
-                    .addComponent(lblUnidadeDeMedida))
+                    .addComponent(lblCampo1)
+                    .addComponent(lblCampo4)
+                    .addComponent(lblCampo3)
+                    .addComponent(lblCampo2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtDiluicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPrescricao)
                     .addComponent(txtFormulacao)
-                    .addComponent(txtUnidadeDeMedida)
-                    .addComponent(txtQuantidadeDeAguaEmMl))
-                .addContainerGap(227, Short.MAX_VALUE))
+                    .addComponent(txtQuantidadeDeAguaEmMl)
+                    .addComponent(cbox01, 0, 119, Short.MAX_VALUE))
+                .addGap(519, 519, 519))
         );
         pnlDadosCalculoLayout.setVerticalGroup(
             pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDadosCalculoLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDiluicao)
-                    .addComponent(txtDiluicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCampo1)
+                    .addComponent(cbox01, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUnidadeDeMedida)
-                    .addComponent(txtUnidadeDeMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCampo2)
+                    .addComponent(txtPrescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFormulacao)
+                    .addComponent(lblCampo3)
                     .addComponent(txtFormulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQuantidadeDeAguaEmMl)
+                    .addComponent(lblCampo4)
                     .addComponent(txtQuantidadeDeAguaEmMl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         btnCalcular.setText("Calcular");
@@ -148,31 +185,50 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
 
         lblValorCalculado.setText("VALOR CALCULADO:");
 
-        lblResultadoCalculo.setText("325.67 ui/ml");
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setText("Paciente:");
+
+        txtMedicamento.setEditable(false);
+        txtMedicamento.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+
+        btnConfirmarPaciente.setText("Confirmar Paciente");
+        btnConfirmarPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarPacienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(jTextField1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnlDadosCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2)
+                            .addComponent(pnlDadosCalculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cboxMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(102, 102, 102)
-                                .addComponent(lblValorCalculado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblResultadoCalculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(102, 102, 102)
+                                        .addComponent(lblValorCalculado)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblResultadoCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cboxPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnConfirmarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,18 +237,24 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboxMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlDadosCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnConfirmarPaciente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlDadosCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCalcular)
                     .addComponent(lblValorCalculado)
                     .addComponent(lblResultadoCalculo))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(235, 235, 235))
         );
 
         pack();
@@ -203,25 +265,49 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         // TODO add your
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void cboxMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxMedicamentosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxMedicamentosActionPerformed
+    private void cboxPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPacientesActionPerformed
+         // Obtém o nome selecionado
+    }//GEN-LAST:event_cboxPacientesActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         // TODO add your handling code here:
+        String cpf = ((String)cboxPacientes.getSelectedItem()).split(",")[1];
+        
+        Paciente paciente = calculoDeDosagem.getPacientes().stream()
+                .filter(p -> p.getCpf().equals(cpf))
+                .findFirst()
+                .orElse(null);
+        
+        Penicilina penicilina = (Penicilina) paciente.getPrescricao().getMedicamento();
+        penicilina.setFormulacao( "5.000.000 UI".equals(cbox01.getSelectedItem()) ? 5000000 : 10000000);
+        lblResultadoCalculo.setText(String.valueOf(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem())) + "ml");
     }//GEN-LAST:event_btnCalcularActionPerformed
 
-    private void txtDiluicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiluicaoActionPerformed
+    private void txtPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrescricaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDiluicaoActionPerformed
-
-    private void txtUnidadeDeMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUnidadeDeMedidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUnidadeDeMedidaActionPerformed
+    }//GEN-LAST:event_txtPrescricaoActionPerformed
 
     private void txtQuantidadeDeAguaEmMlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeDeAguaEmMlActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQuantidadeDeAguaEmMlActionPerformed
+
+    private void cboxPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxPacientesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxPacientesMouseClicked
+
+    private void btnConfirmarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPacienteActionPerformed
+        String cpf = ((String)cboxPacientes.getSelectedItem()).split(",")[1];
+        
+        Paciente paciente = calculoDeDosagem.getPacientes().stream()
+                .filter(p -> p.getCpf().equals(cpf))
+                .findFirst()
+                .orElse(null);
+        
+        
+        txtMedicamento.setText(paciente.getPrescricao().getMedicamento().getNomeMedicamento());
+        
+        setarCamposEspecializados(paciente);
+    }//GEN-LAST:event_btnConfirmarPacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,20 +347,23 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
-    private javax.swing.JComboBox<String> cboxMedicamentos;
+    private javax.swing.JButton btnConfirmarPaciente;
+    private javax.swing.JComboBox<String> cbox01;
+    private javax.swing.JComboBox<String> cboxPacientes;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel lblDiluicao;
-    private javax.swing.JLabel lblFormulacao;
-    private javax.swing.JLabel lblQuantidadeDeAguaEmMl;
+    private javax.swing.JLabel lblCampo1;
+    private javax.swing.JLabel lblCampo2;
+    private javax.swing.JLabel lblCampo3;
+    private javax.swing.JLabel lblCampo4;
     private javax.swing.JLabel lblResultadoCalculo;
-    private javax.swing.JLabel lblUnidadeDeMedida;
     private javax.swing.JLabel lblValorCalculado;
     private javax.swing.JPanel pnlDadosCalculo;
-    private javax.swing.JTextField txtDiluicao;
     private javax.swing.JTextField txtFormulacao;
+    private javax.swing.JTextField txtMedicamento;
+    private javax.swing.JTextField txtPrescricao;
     private javax.swing.JTextField txtQuantidadeDeAguaEmMl;
-    private javax.swing.JTextField txtUnidadeDeMedida;
     // End of variables declaration//GEN-END:variables
 }

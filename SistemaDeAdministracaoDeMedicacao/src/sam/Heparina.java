@@ -6,6 +6,11 @@ public class Heparina extends Medicamento{
     private int dosagemDisponivel;
     private String unidadeDeMedida;
 
+    public Heparina(String nomeMedicamento, String descricao, Prescricao prescricao) {
+        super(nomeMedicamento, descricao, prescricao);
+    }
+    
+
     public int getFormulacao() {
         return formulacao;
     }
@@ -39,7 +44,7 @@ public class Heparina extends Medicamento{
     }
 
     @Override
-    public float calculoDeDosagem() {
+    public float calculoDeDosagem(double dosagem) {
         //todo: implementar lógica do método
         return 1;
     }

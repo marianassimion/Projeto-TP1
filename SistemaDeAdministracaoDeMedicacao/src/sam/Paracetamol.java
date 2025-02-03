@@ -4,6 +4,10 @@ public class Paracetamol extends Medicamento{
     private int dosagemPrescrita;
     private int dosagemDisponivel;
 
+    public Paracetamol(String nomeMedicamento, String descricao, Prescricao prescricao) {
+        super(nomeMedicamento, descricao, prescricao);
+    }
+    
     public int getDosagemPrescrita() {
         return dosagemPrescrita;
     }
@@ -21,7 +25,7 @@ public class Paracetamol extends Medicamento{
     }
 
     @Override
-    public float calculoDeDosagem() {
+    public float calculoDeDosagem(double dosagem) {
         //todo: implementar lógica do método
         return 1;
     }

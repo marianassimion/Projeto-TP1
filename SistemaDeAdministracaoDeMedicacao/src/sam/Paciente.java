@@ -64,6 +64,14 @@ public class Paciente extends Pessoa {
     public Prescricao getPrescricao() {
         return prescricao;
     }
+    
+    // INÍCIO IMPLEMENTAÇÃO MOCKADA PARA VALIDAÇÃO DE CÁLCULO DE DOSAGEM
+
+    public void setPrescricao(Prescricao prescricao) {
+        this.prescricao = prescricao;
+    }
+    
+    // FIM DA IMPLEMENTAÇÃO MOCKADA PARA VALIDAÇÃO DE CÁLCULO DE DOSAGEM
 
     public String getAlergia() {
         return alergia;

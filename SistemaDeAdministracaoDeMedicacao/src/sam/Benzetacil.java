@@ -6,6 +6,12 @@ public class Benzetacil extends Medicamento{
     private int dosagemDisponivel;
     private String unidadeDeMedida;
 
+    public Benzetacil(String nomeMedicamento, String descricao, Prescricao prescricao) {
+        super(nomeMedicamento, descricao, prescricao);
+    }
+    
+    
+
     public int getDosagemPrescrita() {
         return dosagemPrescrita;
     }
@@ -31,7 +37,7 @@ public class Benzetacil extends Medicamento{
     }
 
     @Override
-    public float calculoDeDosagem() {
+    public float calculoDeDosagem(double dosagem) {
         //todo: implementar lógica do método
         return 1;
     }

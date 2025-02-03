@@ -7,6 +7,38 @@ public abstract class Medicamento {
     protected String descricao;
     protected Prescricao prescricao;
 
+    public String getNomeMedicamento() {
+        return nomeMedicamento;
+    }
+
+    public void setNomeMedicamento(String nomeMedicamento) {
+        this.nomeMedicamento = nomeMedicamento;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Prescricao getPrescricao() {
+        return prescricao;
+    }
+
+    public void setPrescricao(Prescricao prescricao) {
+        this.prescricao = prescricao;
+    }
+
+    public Medicamento(String nomeMedicamento, String descricao, Prescricao prescricao) {
+        this.nomeMedicamento = nomeMedicamento;
+        this.descricao = descricao;
+        this.prescricao = prescricao;
+    }
+    
+    
+
 
     public String mostrarDescricao() {
         //todo: implementar lógica do método
@@ -22,5 +54,5 @@ public abstract class Medicamento {
         return this.prescricao.getDataDeValidade().isBefore(LocalDate.now()) ? true: false;
     }
 
-    public abstract float calculoDeDosagem();
+    public abstract float calculoDeDosagem(double dosagem);
 }
