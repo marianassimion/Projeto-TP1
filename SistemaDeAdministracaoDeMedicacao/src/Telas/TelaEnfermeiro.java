@@ -167,7 +167,7 @@ public class TelaEnfermeiro extends javax.swing.JFrame {
 
         txtEnfermeiro.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         txtEnfermeiro.setForeground(new java.awt.Color(0, 0, 0));
-        txtEnfermeiro.setText("Enfermeiro");
+        txtEnfermeiro.setText("Enfermeiros");
 
         btPesquisar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btPesquisar.setText("Pesquisar");
@@ -194,7 +194,7 @@ public class TelaEnfermeiro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblPesquisarNome)
                     .addComponent(lblPesquisarSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 33, Short.MAX_VALUE)
+                .addGap(18, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(txtUNome2)

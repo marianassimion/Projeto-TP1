@@ -1,5 +1,4 @@
 João Silva;12345678901;15/05/2023;1234-SP;vermelho  
-Terceira edição;32887987437;20/02/2000;1234-TO;Segundo Teste
 Lucas Pereira;22334455667;15/05/2023;5678-BA;vermelho
 Fernanda Santos;88990011223;15/05/2023;6789-CE;vermelho
 Rafael Almeida;33445566778;15/05/2023;7890-PE;vermelho

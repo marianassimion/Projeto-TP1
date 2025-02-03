@@ -222,7 +222,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPacienteActionPerformed
-        new TelaCadastroPaciente().setVisible(true);
+        new TelaPacientes().setVisible(true);
     }//GEN-LAST:event_btnCadastrarPacienteActionPerformed
 
     private void btnProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProntuarioActionPerformed
