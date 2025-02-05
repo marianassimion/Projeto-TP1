@@ -1,20 +1,21 @@
 package sam;
 
 public class Insulina extends Medicamento{
-    private String tipoDeSeringa;
+    private int tipoDeSeringa;
     private int dosagemPrescrita;
     private int frascoDisponivel;
     private String unidadeDeMedida;
+    private int tipoCalculo;
 
-    public Insulina(String nomeMedicamento, String descricao, Prescricao prescricao) {
-        super(nomeMedicamento, descricao, prescricao);
+    public Insulina(String descricao, Prescricao prescricao) {
+        super("Insulina", descricao, prescricao);
     }
 
-    public String getTipoDeSeringa() {
+    public int getTipoDeSeringa() {
         return tipoDeSeringa;
     }
 
-    public void setTipoDeSeringa(String tipoDeSeringa) {
+    public void setTipoDeSeringa(int tipoDeSeringa) {
         this.tipoDeSeringa = tipoDeSeringa;
     }
 
@@ -42,9 +43,21 @@ public class Insulina extends Medicamento{
         this.unidadeDeMedida = unidadeDeMedida;
     }
 
+    public int getTipoCalculo() {
+        return tipoCalculo;
+    }
+
+    public void setTipoCalculo(int tipoCalculo) {
+        this.tipoCalculo = tipoCalculo;
+    }
+    
+
     @Override
     public float calculoDeDosagem(double dosagem) {
-        //todo: implementar lógica do método
-        return 1;
+        if(tipoCalculo == 1) {
+            return Math.round(((float)dosagem/(float)frascoDisponivel) * 10) / 10.0f;
+        } else {
+            return Math.round(((float)(dosagem * tipoDeSeringa) / 40) * 10) /10.0f;
+        }
     }
 }

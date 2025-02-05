@@ -8,6 +8,7 @@ import java.util.Optional;
 import sam.Benzetacil;
 import sam.CalculoDeDosagem;
 import sam.Heparina;
+import sam.Insulina;
 import sam.Medicamento;
 import sam.Paciente;
 import sam.Penicilina;
@@ -35,6 +36,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         txtCampo2.setVisible(false);
         txtCampo3.setVisible(false);
         cbox01.setVisible(false);
+        lblObs.setVisible(false);
         
     }
     
@@ -101,6 +103,30 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 
                 btnCalcular.setEnabled(true);
                 break;
+            case "Insulina":
+                lblCampo1.setVisible(true);
+                lblCampo1.setText("Selecione o tipo:");
+                
+                btnConfirmarPaciente.setEnabled(false);
+                
+                cbox01.addItem("FRASCO - 100 UI");
+                cbox01.addItem("FRASCO - 40 UI");
+                cbox01.addItem("SERINGA GRADUADA - 10 UI");
+                cbox01.addItem("SERINGA GRADUADA - 20 UI");
+                cbox01.addItem("SERINGA GRADUADA - 30 UI");
+                cbox01.addItem("SERINGA GRADUADA - 40 UI");
+                cbox01.addItem("SERINGA GRADUADA - 50 UI");
+                cbox01.addItem("SERINGA GRADUADA - 60 UI");
+                cbox01.addItem("SERINGA GRADUADA - 70 UI");
+                cbox01.addItem("SERINGA GRADUADA - 80 UI");
+                cbox01.addItem("SERINGA GRADUADA - 90 UI");
+                cbox01.addItem("SERINGA GRADUADA - 100 UI");
+                cbox01.setVisible(true);
+                
+                lblObs.setText("<html>Obs: No caso seringa graduada,<br>é considerado o fraso de 40 UI,<br>pois o cálculo com frasco de 100 UI<br>e seringa graduada é intuitivo.</html>");
+                lblObs.setVisible(true);
+                
+                btnCalcular.setEnabled(true);
         }
     }
     
@@ -127,6 +153,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         txtCampo2 = new javax.swing.JTextField();
         txtCampo3 = new javax.swing.JTextField();
         cbox01 = new javax.swing.JComboBox<>();
+        lblObs = new javax.swing.JLabel();
         btnCalcular = new javax.swing.JButton();
         lblValorCalculado = new javax.swing.JLabel();
         lblResultadoCalculo = new javax.swing.JLabel();
@@ -198,12 +225,14 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                     .addComponent(lblCampo3)
                     .addComponent(lblCampo2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtCampo2)
-                    .addComponent(txtCampo1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbox01, javax.swing.GroupLayout.Alignment.LEADING, 0, 251, Short.MAX_VALUE)
-                    .addComponent(txtCampo3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblObs, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtCampo2)
+                        .addComponent(txtCampo1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbox01, javax.swing.GroupLayout.Alignment.LEADING, 0, 251, Short.MAX_VALUE)
+                        .addComponent(txtCampo3)))
+                .addContainerGap(387, Short.MAX_VALUE))
         );
         pnlDadosCalculoLayout.setVerticalGroup(
             pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +253,9 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCampo4)
                     .addComponent(txtCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblObs, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         btnCalcular.setText("Calcular");
@@ -292,7 +323,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnConfirmarPaciente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -300,7 +331,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlDadosCalculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCalcular)
                     .addComponent(lblValorCalculado)
@@ -350,6 +381,22 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 heparina.setFormulacao(tipo);
                 
                 lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
+                break;
+            case "Insulina":
+                Insulina insulina = (Insulina) paciente.getPrescricao().getMedicamento();
+                insulina.setTipoCalculo(cbox01.getSelectedIndex());
+                
+                if(cbox01.getSelectedIndex() <= 1) {
+                    insulina.setFrascoDisponivel(Integer.parseInt(((String)cbox01.getSelectedItem()).split(" ")[2]));
+                    insulina.setTipoCalculo(1);
+                    lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
+                } else {
+                    insulina.setTipoDeSeringa((Integer.parseInt(((String)cbox01.getSelectedItem()).split(" ")[3])));
+                    insulina.setTipoCalculo(2);
+                    lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + " UI");
+                }
+                
+                break;
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
 
@@ -373,8 +420,9 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 .findFirst()
                 .orElse(null);
         
-        
+        System.out.println("log1");
         txtMedicamento.setText(paciente.getPrescricao().getMedicamento().getNomeMedicamento());
+        System.out.println("log2");
         
         setarCamposEspecializados(paciente);
     }//GEN-LAST:event_btnConfirmarPacienteActionPerformed
@@ -428,6 +476,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
     private javax.swing.JLabel lblCampo2;
     private javax.swing.JLabel lblCampo3;
     private javax.swing.JLabel lblCampo4;
+    private javax.swing.JLabel lblObs;
     private javax.swing.JLabel lblResultadoCalculo;
     private javax.swing.JLabel lblValorCalculado;
     private javax.swing.JPanel pnlDadosCalculo;

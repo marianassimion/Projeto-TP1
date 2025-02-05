@@ -37,9 +37,15 @@ public class CalculoDeDosagem {
         Heparina heparina = new Heparina("Descrição", prescricao3);
         prescricao3.setMedicamento(heparina);
         
+        Prescricao prescricao4 = new Prescricao(50, "UI", LocalDate.MIN, "obs");
+        Insulina insulina = new Insulina("Descrição", prescricao4);
+        System.out.println("LOG NOME MED: " + insulina.getNomeMedicamento());
+        prescricao4.setMedicamento(insulina);
+        
         addPaciente((float) 80.5, (float) 1.70, 35, "Penicilinoswaldo", "12345678900", "15/02/1956", "não", prescricao1);
         addPaciente((float) 65.5, (float) 1.64, 65, "Dona Benzentaciolina", "12345613200", "15/02/1956", "não", prescricao2);
         addPaciente((float) 74.65, (float) 1.72, 42, "Heparino Pereira da Silva", "78945678900", "15/02/1956", "não", prescricao3);
+        addPaciente((float) 67.4, (float) 1.65, 52, "Tia Bete", "45674512311", "15/02/1956", "não", prescricao4);
         
     }
     
