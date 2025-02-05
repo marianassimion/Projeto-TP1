@@ -39,7 +39,6 @@ public class CalculoDeDosagem {
         
         Prescricao prescricao4 = new Prescricao(50, "UI", LocalDate.MIN, "obs");
         Insulina insulina = new Insulina("Descrição", prescricao4);
-        System.out.println("LOG NOME MED: " + insulina.getNomeMedicamento());
         prescricao4.setMedicamento(insulina);
         
         addPaciente((float) 80.5, (float) 1.70, 35, "Penicilinoswaldo", "12345678900", "15/02/1956", "não", prescricao1);

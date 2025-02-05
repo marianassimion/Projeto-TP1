@@ -48,3 +48,6 @@ Enfermeiro2,23456,Paciente7,77777777777,Paracetamol,500,mg,2023-10-05 15:30:09
 Enfermeiro3,34567,Paciente8,88888888888,Penicilina,1.5,ml,2023-10-05 16:45:21
 Enfermeiro4,45678,Paciente9,99999999999,Benzetacil,1.2,ml,2023-10-05 18:00:33
 Enfermeiro5,56789,Paciente10,10101010101,Dipirona,750,mg,2023-10-05 19:15:55
+João Mock da Silva,332233,Penicilinoswaldo,12345678900,Penicilina,0.2,UI,2025-02-05 03:33:59
+João Mock da Silva,332233,Penicilinoswaldo,12345678900,Penicilina,0.1,UI,2025-02-05 03:34:09
+João Mock da Silva,332233,Tia Bete,45674512311,Insulina,0.5,UI,2025-02-05 03:34:35

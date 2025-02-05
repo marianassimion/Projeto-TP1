@@ -11,11 +11,6 @@ public class Historico {
     private static final String FILE_PATH = "historico.txt";
     
     private ArrayList<RegistroDeAplicacao> historico;
-
-    public ArrayList<RegistroDeAplicacao> buscarPorPaciente (String nomePaciente) {
-        //todo: implementar lógica do método
-        return (ArrayList<RegistroDeAplicacao>) historico.stream().filter(r -> r.getNomePaciente().equals(nomePaciente)).collect(Collectors.toList());
-    }
     
     public ArrayList<RegistroDeAplicacao> filtrarRegistro(String nomeEnfermeiro, String coren, String nomePaciente, String cpfPaciente, String nomeMedicamento, LocalDate dataEspecifica) {
         return (ArrayList<RegistroDeAplicacao>) historico.stream()

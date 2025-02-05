@@ -86,8 +86,8 @@ public class RegistroDeAplicacao {
     
     @Override
     public String toString() {
-        return nomeEnfermeiro + ";" + coren + ";" + nomePaciente + ";" + cpfPaciente + ";" + 
-           nomeMedicamento + ";" + dosagemAplicada + ";" + unidadeDeMedida + ";" + 
+        return nomeEnfermeiro + "," + coren + "," + nomePaciente + "," + cpfPaciente + "," + 
+           nomeMedicamento + "," + dosagemAplicada + "," + unidadeDeMedida + "," + 
            data.format(FORMATTER);   
     }
 }

@@ -4,14 +4,18 @@
  */
 package Telas;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import sam.Benzetacil;
 import sam.CalculoDeDosagem;
 import sam.Heparina;
+import sam.Historico;
 import sam.Insulina;
 import sam.Medicamento;
 import sam.Paciente;
 import sam.Penicilina;
+import sam.RegistroDeAplicacao;
 
 /**
  *
@@ -20,6 +24,9 @@ import sam.Penicilina;
 public class TelaCalculoDeDosagem extends javax.swing.JFrame {
     
     CalculoDeDosagem calculoDeDosagem = new CalculoDeDosagem();
+    Historico historico = new Historico();
+    float dosagemAplicada;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Creates new form CalculoDeDosagem
@@ -37,6 +44,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         txtCampo3.setVisible(false);
         cbox01.setVisible(false);
         lblObs.setVisible(false);
+        btnAplicação.setVisible(false);
         
     }
     
@@ -160,6 +168,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtMedicamento = new javax.swing.JTextField();
         btnConfirmarPaciente = new javax.swing.JButton();
+        btnAplicação = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SAM - Cálculo de Dosagem");
@@ -280,6 +289,13 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
             }
         });
 
+        btnAplicação.setText("Registrar Aplicação");
+        btnAplicação.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAplicaçãoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -312,6 +328,10 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAplicação, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,7 +356,9 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                     .addComponent(btnCalcular)
                     .addComponent(lblValorCalculado)
                     .addComponent(lblResultadoCalculo))
-                .addGap(235, 235, 235))
+                .addGap(96, 96, 96)
+                .addComponent(btnAplicação)
+                .addGap(115, 115, 115))
         );
 
         pack();
@@ -362,25 +384,28 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         
         String nomeMedicamento = paciente.getPrescricao().getMedicamento().getNomeMedicamento();
         
+        btnAplicação.setVisible(true);
+        
         switch (nomeMedicamento) {
             case "Penicilina":
                 Penicilina penicilina = (Penicilina) paciente.getPrescricao().getMedicamento();
                 penicilina.setFormulacao( "5.000.000 UI".equals(cbox01.getSelectedItem()) ? 5000000 : 10000000);
-                lblResultadoCalculo.setText(String.valueOf(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem())) + "ml");
+                dosagemAplicada = paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem());
+                lblResultadoCalculo.setText(String.valueOf(dosagemAplicada) + "ml");
                 break;
             case "Benzetacil":
                 int formulacao = Integer.parseInt(((String)cbox01.getSelectedItem()).split(" ")[0].replace(".", ""));
                 Benzetacil benzetacil = (Benzetacil) paciente.getPrescricao().getMedicamento();
                 benzetacil.setDosagemDisponivel(formulacao);
-                
-                lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
+                dosagemAplicada = paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem());
+                lblResultadoCalculo.setText(dosagemAplicada + "ml");
                 break;
             case "Heparina":
                 int tipo = cbox01.getSelectedIndex();
                 Heparina heparina = (Heparina) paciente.getPrescricao().getMedicamento();
                 heparina.setFormulacao(tipo);
-                
-                lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
+                dosagemAplicada = paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem());
+                lblResultadoCalculo.setText(dosagemAplicada + "ml");
                 break;
             case "Insulina":
                 Insulina insulina = (Insulina) paciente.getPrescricao().getMedicamento();
@@ -389,13 +414,14 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 if(cbox01.getSelectedIndex() <= 1) {
                     insulina.setFrascoDisponivel(Integer.parseInt(((String)cbox01.getSelectedItem()).split(" ")[2]));
                     insulina.setTipoCalculo(1);
-                    lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
+                    dosagemAplicada = paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem());
+                    lblResultadoCalculo.setText(dosagemAplicada + "ml");
                 } else {
                     insulina.setTipoDeSeringa((Integer.parseInt(((String)cbox01.getSelectedItem()).split(" ")[3])));
                     insulina.setTipoCalculo(2);
-                    lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + " UI");
+                    dosagemAplicada = paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem());
+                    lblResultadoCalculo.setText(dosagemAplicada + " UI");
                 }
-                
                 break;
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
@@ -420,12 +446,23 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 .findFirst()
                 .orElse(null);
         
-        System.out.println("log1");
         txtMedicamento.setText(paciente.getPrescricao().getMedicamento().getNomeMedicamento());
-        System.out.println("log2");
         
         setarCamposEspecializados(paciente);
     }//GEN-LAST:event_btnConfirmarPacienteActionPerformed
+
+    private void btnAplicaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAplicaçãoActionPerformed
+        
+        String cpf = ((String)cboxPacientes.getSelectedItem()).split(",")[1];
+        
+        Paciente paciente = calculoDeDosagem.getPacientes().stream()
+                .filter(p -> p.getCpf().equals(cpf))
+                .findFirst()
+                .orElse(null);
+        
+        RegistroDeAplicacao registroDeAplicacao = new RegistroDeAplicacao("João Mock da Silva", "332233", paciente.getNome(), paciente.getCpf(), paciente.getPrescricao().getMedicamento().getNomeMedicamento(), dosagemAplicada, paciente.getPrescricao().getUnidadeDeMedidada(), LocalDateTime.now());
+        historico.adicionarRegistro(registroDeAplicacao);
+    }//GEN-LAST:event_btnAplicaçãoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -464,6 +501,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAplicação;
     private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnConfirmarPaciente;
     private javax.swing.JComboBox<String> cbox01;
