@@ -59,9 +59,10 @@ public class TelaHistorico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SAM - Histórico");
+        setPreferredSize(new java.awt.Dimension(820, 580));
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(0, 0, 204));
+        jTextField1.setBackground(new java.awt.Color(0, 16, 127));
         jTextField1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setText("SAM - Sistema de Administração de Medicamentos");
@@ -71,8 +72,10 @@ public class TelaHistorico extends javax.swing.JFrame {
             }
         });
 
+        pnlPesquisaHistorico.setBackground(new java.awt.Color(204, 204, 255));
         pnlPesquisaHistorico.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Busca Personalizada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
 
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/historico 32px.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +225,8 @@ public class TelaHistorico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbHistorico);
 
-        btnAtualizar.setText("Atualizar");
+        btnAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/limpar.png"))); // NOI18N
+        btnAtualizar.setText("Limpar Filtros");
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtualizarActionPerformed(evt);
@@ -250,7 +254,7 @@ public class TelaHistorico extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAtualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
