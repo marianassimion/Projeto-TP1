@@ -164,9 +164,9 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtPrescricao" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtFormulacao" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtQuantidadeDeAguaEmMl" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtCampo1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtCampo2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtCampo3" alignment="0" max="32767" attributes="0"/>
                       <Component id="cbox01" pref="119" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="519" max="-2" attributes="0"/>
@@ -184,17 +184,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCampo2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPrescricao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCampo1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCampo3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtFormulacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCampo2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCampo4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtQuantidadeDeAguaEmMl" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCampo3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="35" max="32767" attributes="0"/>
               </Group>
@@ -222,16 +222,16 @@
             <Property name="text" type="java.lang.String" value="quantidade de &#xe1;gua em ml:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPrescricao">
+        <Component class="javax.swing.JTextField" name="txtCampo1">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPrescricaoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCampo1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtFormulacao">
+        <Component class="javax.swing.JTextField" name="txtCampo2">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtQuantidadeDeAguaEmMl">
+        <Component class="javax.swing.JTextField" name="txtCampo3">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQuantidadeDeAguaEmMlActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCampo3ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbox01">

@@ -37,11 +37,8 @@ public class Penicilina extends Medicamento{
         this.quantidadeDeAgua = quantidadeDeAgua;
     }
 
-    
-    
-
     @Override
     public float calculoDeDosagem(double dosagem) {
-        return (float)((10*dosagem) / (double)formulacao);
+        return  Math.round(((float)((10*dosagem) / (double)formulacao)) * 10) / 10.0f;
     }
 }

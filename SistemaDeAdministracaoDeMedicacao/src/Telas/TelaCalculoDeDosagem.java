@@ -5,6 +5,7 @@
 package Telas;
 
 import java.util.Optional;
+import sam.Benzetacil;
 import sam.CalculoDeDosagem;
 import sam.Medicamento;
 import sam.Paciente;
@@ -25,6 +26,14 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         initComponents();
         carregarListaPacientes();
         btnCalcular.setEnabled(false);
+        lblCampo1.setVisible(false);
+        lblCampo2.setVisible(false);
+        lblCampo3.setVisible(false);
+        lblCampo4.setVisible(false);
+        txtCampo1.setVisible(false);
+        txtCampo2.setVisible(false);
+        txtCampo3.setVisible(false);
+        cbox01.setVisible(false);
         
     }
     
@@ -37,19 +46,42 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
     public void setarCamposEspecializados(Paciente paciente) {
         switch (paciente.getPrescricao().getMedicamento().getNomeMedicamento()) {
             case "Penicilina":
+                lblCampo1.setVisible(true);
                 lblCampo1.setText("Selecione tipo de frasco:");
+                
                 cbox01.addItem("5.000.000 UI");
                 cbox01.addItem("10.000.000 UI");
+                cbox01.setVisible(true);
+                
                 btnConfirmarPaciente.setEnabled(false);
+                
+                lblCampo2.setVisible(true);
                 lblCampo2.setText("Valor prescrito:");
-                txtPrescricao.setText(String.valueOf(paciente.getPrescricao().getDosagem()));
-                txtPrescricao.setEditable(false);
-                lblCampo3.setEnabled(false);
-                lblCampo4.setEnabled(false);
-                txtFormulacao.setEnabled(false);
-                txtQuantidadeDeAguaEmMl.setEnabled(false);
+                txtCampo1.setVisible(true);
+                txtCampo1.setText(String.valueOf(paciente.getPrescricao().getDosagem()));
+                                
                 btnCalcular.setEnabled(true);
                 break;
+            case "Benzetacil":
+                
+                lblCampo1.setVisible(true);
+                lblCampo1.setText("Selecione tipo de frasco:");
+                
+                cbox01.addItem("300.000 UI");
+                cbox01.addItem("600.000 UI");
+                cbox01.addItem("1.200.000 UI");
+                cbox01.addItem("2.400.000 UI");
+                cbox01.setVisible(true);
+                
+                btnConfirmarPaciente.setEnabled(false);
+                
+                lblCampo2.setVisible(true);
+                lblCampo2.setText("Valor prescrito:");
+                txtCampo1.setVisible(true);
+                txtCampo1.setText(String.valueOf(paciente.getPrescricao().getDosagem()));
+                
+                btnCalcular.setEnabled(true);
+                
         }
     }
     
@@ -72,9 +104,9 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         lblCampo2 = new javax.swing.JLabel();
         lblCampo3 = new javax.swing.JLabel();
         lblCampo4 = new javax.swing.JLabel();
-        txtPrescricao = new javax.swing.JTextField();
-        txtFormulacao = new javax.swing.JTextField();
-        txtQuantidadeDeAguaEmMl = new javax.swing.JTextField();
+        txtCampo1 = new javax.swing.JTextField();
+        txtCampo2 = new javax.swing.JTextField();
+        txtCampo3 = new javax.swing.JTextField();
         cbox01 = new javax.swing.JComboBox<>();
         btnCalcular = new javax.swing.JButton();
         lblValorCalculado = new javax.swing.JLabel();
@@ -123,15 +155,15 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
 
         lblCampo4.setText("quantidade de água em ml:");
 
-        txtPrescricao.addActionListener(new java.awt.event.ActionListener() {
+        txtCampo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrescricaoActionPerformed(evt);
+                txtCampo1ActionPerformed(evt);
             }
         });
 
-        txtQuantidadeDeAguaEmMl.addActionListener(new java.awt.event.ActionListener() {
+        txtCampo3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQuantidadeDeAguaEmMlActionPerformed(evt);
+                txtCampo3ActionPerformed(evt);
             }
         });
 
@@ -148,9 +180,9 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                     .addComponent(lblCampo2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPrescricao)
-                    .addComponent(txtFormulacao)
-                    .addComponent(txtQuantidadeDeAguaEmMl)
+                    .addComponent(txtCampo1)
+                    .addComponent(txtCampo2)
+                    .addComponent(txtCampo3)
                     .addComponent(cbox01, 0, 119, Short.MAX_VALUE))
                 .addGap(519, 519, 519))
         );
@@ -164,15 +196,15 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCampo2)
-                    .addComponent(txtPrescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCampo3)
-                    .addComponent(txtFormulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCampo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCampo4)
-                    .addComponent(txtQuantidadeDeAguaEmMl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCampo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -278,18 +310,30 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 .findFirst()
                 .orElse(null);
         
-        Penicilina penicilina = (Penicilina) paciente.getPrescricao().getMedicamento();
-        penicilina.setFormulacao( "5.000.000 UI".equals(cbox01.getSelectedItem()) ? 5000000 : 10000000);
-        lblResultadoCalculo.setText(String.valueOf(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem())) + "ml");
+        String nomeMedicamento = paciente.getPrescricao().getMedicamento().getNomeMedicamento();
+        
+        switch (nomeMedicamento) {
+            case "Penicilina":
+                Penicilina penicilina = (Penicilina) paciente.getPrescricao().getMedicamento();
+                penicilina.setFormulacao( "5.000.000 UI".equals(cbox01.getSelectedItem()) ? 5000000 : 10000000);
+                lblResultadoCalculo.setText(String.valueOf(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem())) + "ml");
+                break;
+            case "Benzetacil":
+                int formulacao = Integer.parseInt(((String)cbox01.getSelectedItem()).split(" ")[0].replace(".", ""));
+                Benzetacil benzetacil = (Benzetacil) paciente.getPrescricao().getMedicamento();
+                benzetacil.setDosagemDisponivel(formulacao);
+                
+                lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
+        }
     }//GEN-LAST:event_btnCalcularActionPerformed
 
-    private void txtPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrescricaoActionPerformed
+    private void txtCampo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCampo1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrescricaoActionPerformed
+    }//GEN-LAST:event_txtCampo1ActionPerformed
 
-    private void txtQuantidadeDeAguaEmMlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeDeAguaEmMlActionPerformed
+    private void txtCampo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCampo3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtQuantidadeDeAguaEmMlActionPerformed
+    }//GEN-LAST:event_txtCampo3ActionPerformed
 
     private void cboxPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxPacientesMouseClicked
         // TODO add your handling code here:
@@ -361,9 +405,9 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
     private javax.swing.JLabel lblResultadoCalculo;
     private javax.swing.JLabel lblValorCalculado;
     private javax.swing.JPanel pnlDadosCalculo;
-    private javax.swing.JTextField txtFormulacao;
+    private javax.swing.JTextField txtCampo1;
+    private javax.swing.JTextField txtCampo2;
+    private javax.swing.JTextField txtCampo3;
     private javax.swing.JTextField txtMedicamento;
-    private javax.swing.JTextField txtPrescricao;
-    private javax.swing.JTextField txtQuantidadeDeAguaEmMl;
     // End of variables declaration//GEN-END:variables
 }
