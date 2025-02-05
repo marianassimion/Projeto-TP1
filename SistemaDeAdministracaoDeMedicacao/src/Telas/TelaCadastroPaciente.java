@@ -6,13 +6,14 @@ import java.time.Period;
 import javax.swing.JOptionPane;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class TelaCadastroPaciente extends javax.swing.JFrame {
     
     private static final String BANCO_DADOS = "cadastro_pacientes.txt";
-    
+    private ArrayList<Paciente> listaPacientes = new ArrayList(); //lista vazia de pacientes
+
     public TelaCadastroPaciente() {
-       // listaPacientes = new ArrayList(); //lista vazia de pacientes
         
         initComponents();
         setLocationRelativeTo(null); //muda o local de origem da tela
@@ -374,6 +375,8 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                     return;
                 }
                 Paciente paciente = new Paciente (peso, altura, idade, nome, cpf, dataNascimentoStr, alergia);
+                listaPacientes.add(paciente);
+
                 salvarNoArquivo(paciente);
                 
                 JOptionPane.showMessageDialog(null, "Paciente "+ nome +" cadastrado com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE);
