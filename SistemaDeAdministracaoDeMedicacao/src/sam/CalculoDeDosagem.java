@@ -33,8 +33,13 @@ public class CalculoDeDosagem {
         Benzetacil benzetacil = new Benzetacil("Descrição", prescricao2);
         prescricao2.setMedicamento(benzetacil);
         
+        Prescricao prescricao3 = new Prescricao(16000, "UI", LocalDate.MIN, "obs");
+        Heparina heparina = new Heparina("Descrição", prescricao3);
+        prescricao3.setMedicamento(heparina);
+        
         addPaciente((float) 80.5, (float) 1.70, 35, "Penicilinoswaldo", "12345678900", "15/02/1956", "não", prescricao1);
         addPaciente((float) 65.5, (float) 1.64, 65, "Dona Benzentaciolina", "12345613200", "15/02/1956", "não", prescricao2);
+        addPaciente((float) 74.65, (float) 1.72, 42, "Heparino Pereira da Silva", "78945678900", "15/02/1956", "não", prescricao3);
         
     }
     

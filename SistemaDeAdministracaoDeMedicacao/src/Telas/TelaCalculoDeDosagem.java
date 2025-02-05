@@ -63,7 +63,6 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 btnCalcular.setEnabled(true);
                 break;
             case "Benzetacil":
-                
                 lblCampo1.setVisible(true);
                 lblCampo1.setText("Selecione tipo de frasco:");
                 
@@ -81,7 +80,25 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 txtCampo1.setText(String.valueOf(paciente.getPrescricao().getDosagem()));
                 
                 btnCalcular.setEnabled(true);
+                break;
+            case "Heparina":
+                lblCampo1.setVisible(true);
+                lblCampo1.setText("Frasco:");
                 
+                
+                cbox01.addItem("25.000 UI");
+                cbox01.setVisible(true);
+                
+                btnConfirmarPaciente.setEnabled(false);
+                
+                
+                lblCampo2.setVisible(true);
+                lblCampo2.setText("Valor prescrito:");
+                txtCampo1.setVisible(true);
+                txtCampo1.setText(String.valueOf(paciente.getPrescricao().getDosagem()));
+                
+                btnCalcular.setEnabled(true);
+                break;
         }
     }
     
@@ -323,6 +340,9 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 Benzetacil benzetacil = (Benzetacil) paciente.getPrescricao().getMedicamento();
                 benzetacil.setDosagemDisponivel(formulacao);
                 
+                lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
+                break;
+            case "Heparina":
                 lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
