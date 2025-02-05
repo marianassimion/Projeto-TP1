@@ -7,6 +7,7 @@ package Telas;
 import java.util.Optional;
 import sam.Benzetacil;
 import sam.CalculoDeDosagem;
+import sam.Heparina;
 import sam.Medicamento;
 import sam.Paciente;
 import sam.Penicilina;
@@ -83,10 +84,11 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 break;
             case "Heparina":
                 lblCampo1.setVisible(true);
-                lblCampo1.setText("Frasco:");
+                lblCampo1.setText("Selecione o tipo disponível:");
                 
                 
-                cbox01.addItem("25.000 UI");
+                cbox01.addItem("25.000 UI - FRASCO");
+                cbox01.addItem("5.000 UI / 0.25 ml - AMPOLA");
                 cbox01.setVisible(true);
                 
                 btnConfirmarPaciente.setEnabled(false);
@@ -196,12 +198,12 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                     .addComponent(lblCampo3)
                     .addComponent(lblCampo2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCampo1)
+                .addGroup(pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtCampo2)
-                    .addComponent(txtCampo3)
-                    .addComponent(cbox01, 0, 119, Short.MAX_VALUE))
-                .addGap(519, 519, 519))
+                    .addComponent(txtCampo1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbox01, javax.swing.GroupLayout.Alignment.LEADING, 0, 251, Short.MAX_VALUE)
+                    .addComponent(txtCampo3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlDadosCalculoLayout.setVerticalGroup(
             pnlDadosCalculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +274,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(cboxPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(btnConfirmarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 101, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
@@ -343,6 +345,10 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
                 lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
                 break;
             case "Heparina":
+                int tipo = cbox01.getSelectedIndex();
+                Heparina heparina = (Heparina) paciente.getPrescricao().getMedicamento();
+                heparina.setFormulacao(tipo);
+                
                 lblResultadoCalculo.setText(paciente.getPrescricao().getMedicamento().calculoDeDosagem(paciente.getPrescricao().getDosagem()) + "ml");
         }
     }//GEN-LAST:event_btnCalcularActionPerformed

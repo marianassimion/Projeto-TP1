@@ -45,6 +45,10 @@ public class Heparina extends Medicamento{
 
     @Override
     public float calculoDeDosagem(double dosagem) {
-        return  Math.round(((float)(5 * dosagem) / 25000) * 10) / 10.0f;
+        if(formulacao == 0) {
+            return  Math.round(((float)(5 * dosagem) / 25000) * 10) / 10.0f;
+        } else {
+            return  Math.round(((float)(0.25 * dosagem) / 5000) * 10) / 10.0f;
+        }
     }
 }
