@@ -225,7 +225,7 @@ public class TelaHistorico extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbHistorico);
 
-        btnAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/limpar.png"))); // NOI18N
+        btnAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/limpar2.png"))); // NOI18N
         btnAtualizar.setText("Limpar Filtros");
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

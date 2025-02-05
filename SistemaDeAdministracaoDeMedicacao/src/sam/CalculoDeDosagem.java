@@ -3,6 +3,12 @@ package sam;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Classe auxiliar no construção da solução para gerar dados mockados a fim de viabilizar o desenvolvimento enquanto a forma definitiva não for implementada.
+ *
+ * @author Dionilton
+ * @version 1.0
+ */
 public class CalculoDeDosagem {
     private ArrayList<Paciente> pacientes;
     
@@ -45,7 +51,7 @@ public class CalculoDeDosagem {
         addPaciente((float) 65.5, (float) 1.64, 65, "Dona Benzentaciolina", "12345613200", "15/02/1956", "não", prescricao2);
         addPaciente((float) 74.65, (float) 1.72, 42, "Heparino Pereira da Silva", "78945678900", "15/02/1956", "não", prescricao3);
         addPaciente((float) 67.4, (float) 1.65, 52, "Tia Bete", "45674512311", "15/02/1956", "não", prescricao4);
-        
+        addPaciente((float) 55, (float) 1.55, 52, "Null Prescri da Silva", "15935713255", "15/02/1956", "não", null);
     }
     
 }

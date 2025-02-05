@@ -51,7 +51,8 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
     
     public void carregarListaPacientes() {
         for (Paciente p : calculoDeDosagem.getPacientes()) {
-            cboxPacientes.addItem(p.getNome() + "," + p.getCpf());
+            if(p.getPrescricao() != null)
+                cboxPacientes.addItem(p.getNome() + "," + p.getCpf());
         }
     }
     
@@ -472,7 +473,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         RegistroDeAplicacao registroDeAplicacao = new RegistroDeAplicacao("João Mock da Silva", "332233", paciente.getNome(), paciente.getCpf(), paciente.getPrescricao().getMedicamento().getNomeMedicamento(), dosagemAplicada, paciente.getPrescricao().getUnidadeDeMedidada(), LocalDateTime.now());
         historico.adicionarRegistro(registroDeAplicacao);
         btnAplicação.setEnabled(false);
-        JOptionPane.showMessageDialog(null, "Registro de aplicação gravada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Registro de aplicação gravado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAplicaçãoActionPerformed
 
     /**
