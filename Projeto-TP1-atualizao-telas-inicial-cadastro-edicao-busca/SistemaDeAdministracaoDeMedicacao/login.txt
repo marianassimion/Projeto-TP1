@@ -1,0 +1,5 @@
+1234;senha
+usuario1;senha123
+joao;minhasenha
+maria;senhaSegura
+12345;E76569969072

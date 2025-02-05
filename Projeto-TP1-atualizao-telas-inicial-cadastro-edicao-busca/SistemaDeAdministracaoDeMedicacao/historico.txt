@@ -1,0 +1,64 @@
+Enfermeiro1,12345,Paciente1,11111111111,Benzetacil,1.5,ml,2023-10-01 08:00:23
+Enfermeiro2,23456,Paciente2,22222222222,Dipirona,500,mg,2023-10-01 09:15:45
+Enfermeiro3,34567,Paciente3,33333333333,Heparina,5000,UI,2023-10-01 10:30:12
+Enfermeiro4,45678,Paciente4,44444444444,Insulina,10,UI,2023-10-01 11:45:34
+Enfermeiro5,56789,Paciente5,55555555555,Paracetamol,750,mg,2023-10-01 13:00:56
+Enfermeiro1,12345,Paciente6,66666666666,Penicilina,1.2,ml,2023-10-01 14:15:07
+Enfermeiro2,23456,Paciente7,77777777777,Benzetacil,1.0,ml,2023-10-01 15:30:29
+Enfermeiro3,34567,Paciente8,88888888888,Dipirona,1000,mg,2023-10-01 16:45:41
+Enfermeiro4,45678,Paciente9,99999999999,Heparina,7500,UI,2023-10-01 18:00:53
+Enfermeiro5,56789,Paciente10,10101010101,Insulina,20,UI,2023-10-01 19:15:15
+Enfermeiro1,12345,Paciente1,11111111111,Paracetamol,500,mg,2023-10-02 08:00:27
+Enfermeiro2,23456,Paciente2,22222222222,Penicilina,1.5,ml,2023-10-02 09:15:49
+Enfermeiro3,34567,Paciente3,33333333333,Benzetacil,1.2,ml,2023-10-02 10:30:11
+Enfermeiro4,45678,Paciente4,44444444444,Dipirona,750,mg,2023-10-02 11:45:33
+Enfermeiro5,56789,Paciente5,55555555555,Heparina,10000,UI,2023-10-02 13:00:55
+Enfermeiro1,12345,Paciente6,66666666666,Insulina,15,UI,2023-10-02 14:15:17
+Enfermeiro2,23456,Paciente7,77777777777,Paracetamol,1000,mg,2023-10-02 15:30:39
+Enfermeiro3,34567,Paciente8,88888888888,Penicilina,1.0,ml,2023-10-02 16:45:51
+Enfermeiro4,45678,Paciente9,99999999999,Benzetacil,1.5,ml,2023-10-02 18:00:03
+Enfermeiro5,56789,Paciente10,10101010101,Dipirona,500,mg,2023-10-02 19:15:25
+Enfermeiro1,12345,Paciente1,11111111111,Heparina,5000,UI,2023-10-03 08:00:47
+Enfermeiro2,23456,Paciente2,22222222222,Insulina,10,UI,2023-10-03 09:15:09
+Enfermeiro3,34567,Paciente3,33333333333,Paracetamol,750,mg,2023-10-03 10:30:21
+Enfermeiro4,45678,Paciente4,44444444444,Penicilina,1.2,ml,2023-10-03 11:45:43
+Enfermeiro5,56789,Paciente5,55555555555,Benzetacil,1.0,ml,2023-10-03 13:00:05
+Enfermeiro1,12345,Paciente6,66666666666,Dipirona,1000,mg,2023-10-03 14:15:27
+Enfermeiro2,23456,Paciente7,77777777777,Heparina,7500,UI,2023-10-03 15:30:49
+Enfermeiro3,34567,Paciente8,88888888888,Insulina,20,UI,2023-10-03 16:45:01
+Enfermeiro4,45678,Paciente9,99999999999,Paracetamol,500,mg,2023-10-03 18:00:13
+Enfermeiro5,56789,Paciente10,10101010101,Penicilina,1.5,ml,2023-10-03 19:15:35
+Enfermeiro1,12345,Paciente1,11111111111,Benzetacil,1.2,ml,2023-10-04 08:00:57
+Enfermeiro2,23456,Paciente2,22222222222,Dipirona,750,mg,2023-10-04 09:15:19
+Enfermeiro3,34567,Paciente3,33333333333,Heparina,10000,UI,2023-10-04 10:30:31
+Enfermeiro4,45678,Paciente4,44444444444,Insulina,15,UI,2023-10-04 11:45:53
+Enfermeiro5,56789,Paciente5,55555555555,Paracetamol,1000,mg,2023-10-04 13:00:15
+Enfermeiro1,12345,Paciente6,66666666666,Penicilina,1.0,ml,2023-10-04 14:15:37
+Enfermeiro2,23456,Paciente7,77777777777,Benzetacil,1.5,ml,2023-10-04 15:30:59
+Enfermeiro3,34567,Paciente8,88888888888,Dipirona,500,mg,2023-10-04 16:45:11
+Enfermeiro4,45678,Paciente9,99999999999,Heparina,5000,UI,2023-10-04 18:00:23
+Enfermeiro5,56789,Paciente10,10101010101,Insulina,10,UI,2023-10-04 19:15:45
+Enfermeiro1,12345,Paciente1,11111111111,Paracetamol,750,mg,2023-10-05 08:00:07
+Enfermeiro2,23456,Paciente2,22222222222,Penicilina,1.2,ml,2023-10-05 09:15:29
+Enfermeiro3,34567,Paciente3,33333333333,Benzetacil,1.0,ml,2023-10-05 10:30:41
+Enfermeiro4,45678,Paciente4,44444444444,Dipirona,1000,mg,2023-10-05 11:45:03
+Enfermeiro5,56789,Paciente5,55555555555,Heparina,7500,UI,2023-10-05 13:00:25
+Enfermeiro1,12345,Paciente6,66666666666,Insulina,20,UI,2023-10-05 14:15:47
+Enfermeiro2,23456,Paciente7,77777777777,Paracetamol,500,mg,2023-10-05 15:30:09
+Enfermeiro3,34567,Paciente8,88888888888,Penicilina,1.5,ml,2023-10-05 16:45:21
+Enfermeiro4,45678,Paciente9,99999999999,Benzetacil,1.2,ml,2023-10-05 18:00:33
+Enfermeiro5,56789,Paciente10,10101010101,Dipirona,750,mg,2023-10-05 19:15:55
+João Mock da Silva,332233,Penicilinoswaldo,12345678900,Penicilina,0.2,UI,2025-02-05 03:33:59
+João Mock da Silva,332233,Penicilinoswaldo,12345678900,Penicilina,0.1,UI,2025-02-05 03:34:09
+João Mock da Silva,332233,Tia Bete,45674512311,Insulina,0.5,UI,2025-02-05 03:34:35
+João Mock da Silva,332233,Heparino Pereira da Silva,78945678900,Heparina,0.8,UI,2025-02-05 04:24:13
+João Mock da Silva,332233,Tia Bete,45674512311,Insulina,12.5,UI,2025-02-05 04:24:32
+João Mock da Silva,332233,Tia Bete,45674512311,Insulina,100.0,UI,2025-02-05 04:26:49
+João Mock da Silva,332233,Heparino Pereira da Silva,78945678900,Heparina,0.8,UI,2025-02-05 04:28:09
+João Mock da Silva,332233,Heparino Pereira da Silva,78945678900,Heparina,3.2,UI,2025-02-05 04:54:01
+João Mock da Silva,332233,Dona Benzentaciolina,12345613200,Benzetacil,1.3,UI,2025-02-05 04:59:07
+João Mock da Silva,332233,Dona Benzentaciolina,12345613200,Benzetacil,2.7,UI,2025-02-05 05:02:51
+João Mock da Silva,332233,Dona Benzentaciolina,12345613200,Benzetacil,10.7,UI,2025-02-05 05:05:56
+João Mock da Silva,332233,Tia Bete,45674512311,Insulina,50.0,UI,2025-02-05 05:09:04
+João Mock da Silva,332233,Penicilinoswaldo,12345678900,Penicilina,0.1,UI,2025-02-05 05:14:25
+João Mock da Silva,332233,Heparino Pereira da Silva,78945678900,Heparina,3.2,UI,2025-02-05 05:21:18
