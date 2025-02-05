@@ -277,13 +277,6 @@ public class TelaHistorico extends javax.swing.JFrame {
         
         carregarPesquisa(historico.filtrarRegistro(nomeEnfermeiro, coren, nomePaciente, cpfPaciente, nomeMedicamento, data));
         
-        System.out.println("nomeEnfermeiro:" + nomeEnfermeiro);
-        System.out.println("coren:" + coren);
-        System.out.println("nomePaciente:" + nomePaciente);
-        System.out.println("cpfPaciente:" + cpfPaciente);
-        System.out.println("nomeMedicamento:" + nomeMedicamento);
-        System.out.println("data:" + data.toString());
-        
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed

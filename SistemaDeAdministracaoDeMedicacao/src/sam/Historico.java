@@ -6,12 +6,23 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Classe que administrar e representa o histórico de aplicações, bem como lida com a persistência dos dados em arquivo .txt
+ *
+ * @author Dionilton
+ * @version 1.0
+ */
 public class Historico {
     
     private static final String FILE_PATH = "historico.txt";
     
     private ArrayList<RegistroDeAplicacao> historico;
     
+    /**
+     * Método de busca genérica no histórico que realizar filtros a partir de qualquer combinação dos atributos da classe Registro de Aplicação.
+     *
+     * @return retorna uma lista de RegistroDeAplicacao com as ocorrências encontradas a partir dos filtros.
+     */
     public ArrayList<RegistroDeAplicacao> filtrarRegistro(String nomeEnfermeiro, String coren, String nomePaciente, String cpfPaciente, String nomeMedicamento, LocalDate dataEspecifica) {
         return (ArrayList<RegistroDeAplicacao>) historico.stream()
         .filter(r -> (nomeEnfermeiro == null || r.getNomeEnfermeiro().equalsIgnoreCase(nomeEnfermeiro)))
@@ -23,29 +34,37 @@ public class Historico {
         .collect(Collectors.toList());
     }
 
-    public ArrayList<RegistroDeAplicacao> buscarPorDia (LocalDate data) {
-        //todo: implementar lógica do método
-        return this.historico;
-    }
-
-    public void listarHistorico() {
-        //todo: implementar lógica do método
-        System.out.println(this.historico);
-    }
-
+    /**
+     * Adciona um novo RegistroDeAplicacao ao atributo private ArrayList<RegistroDeAplicacao> historico;
+     *
+     * @param RegistroDeAplicacao registroDeAplicacao representa o registro a ser adicionado.
+     */
     public void cadastrarNovoRegistro (RegistroDeAplicacao registroDeAplicacao) {
         this.historico.add(registroDeAplicacao);
     }
-
+    
+    /** 
+    * Construtor da classe
+    */
     public Historico() {
         this.historico = new ArrayList<>();
     }
     
+    /**
+     * Adciona um novo RegistroDeAplicacao ao arquivo private ArrayList<RegistroDeAplicacao> historico e salva o novo registro no arquivo .txt de persitência dos dados.
+     *
+     * @param RegistroDeAplicacao registroDeAplicacao representa o registro a ser adicionado no arquivo de persistência.
+     */
     public void adicionarRegistro(RegistroDeAplicacao registroDeAplicacao) {
         historico.add(registroDeAplicacao);
         salvarRegistroNoArquivo(registroDeAplicacao);
     }
     
+    /**
+     * Adciona um novo RegistroDeAplicacao ao arquivo .txt de persitência dos dados.
+     *
+     * @param RegistroDeAplicacao registroDeAplicacao representa o registro a ser adicionado no arquivo de persistência.
+     */
     private void salvarRegistroNoArquivo(RegistroDeAplicacao registroDeAplicacao) {
         File arquivo = new File(FILE_PATH);
         
@@ -60,6 +79,10 @@ public class Historico {
         }
     }
     
+    /**
+     * Carregar o histórico do arquivo .txt no atributo private ArrayList<RegistroDeAplicacao> historico;
+     *
+     */
     public void carregarHistorico() {
         historico.clear();
         Path caminho = Paths.get(FILE_PATH);

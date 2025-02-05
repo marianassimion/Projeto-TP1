@@ -1,12 +1,21 @@
 package sam;
 
+/**
+ * Classe especialista de Medicamento que implementa as especificidades do medicamento Insulina
+ *
+ * @author Dionilton
+ * @version 1.0
+ */
 public class Insulina extends Medicamento{
     private int tipoDeSeringa;
     private int dosagemPrescrita;
     private int frascoDisponivel;
     private String unidadeDeMedida;
     private int tipoCalculo;
-
+    
+    /** 
+    * Construtor da classe
+    */
     public Insulina(String descricao, Prescricao prescricao) {
         super("Insulina", descricao, prescricao);
     }
@@ -51,7 +60,12 @@ public class Insulina extends Medicamento{
         this.tipoCalculo = tipoCalculo;
     }
     
-
+    /**
+     * Sobscrever o método de calculo de dosagem de forma mais especifica ao medicamento em si.
+     *
+     * @param dosagem float representando a dosagem prescrita
+     * @return retorna o valor de dosagem para ser administrado na aplicação
+     */
     @Override
     public float calculoDeDosagem(double dosagem) {
         if(tipoCalculo == 1) {

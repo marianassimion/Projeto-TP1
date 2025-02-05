@@ -51,3 +51,7 @@ Enfermeiro5,56789,Paciente10,10101010101,Dipirona,750,mg,2023-10-05 19:15:55
 João Mock da Silva,332233,Penicilinoswaldo,12345678900,Penicilina,0.2,UI,2025-02-05 03:33:59
 João Mock da Silva,332233,Penicilinoswaldo,12345678900,Penicilina,0.1,UI,2025-02-05 03:34:09
 João Mock da Silva,332233,Tia Bete,45674512311,Insulina,0.5,UI,2025-02-05 03:34:35
+João Mock da Silva,332233,Heparino Pereira da Silva,78945678900,Heparina,0.8,UI,2025-02-05 04:24:13
+João Mock da Silva,332233,Tia Bete,45674512311,Insulina,12.5,UI,2025-02-05 04:24:32
+João Mock da Silva,332233,Tia Bete,45674512311,Insulina,100.0,UI,2025-02-05 04:26:49
+João Mock da Silva,332233,Heparino Pereira da Silva,78945678900,Heparina,0.8,UI,2025-02-05 04:28:09

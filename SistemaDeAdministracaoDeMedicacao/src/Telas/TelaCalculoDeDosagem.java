@@ -462,6 +462,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         
         RegistroDeAplicacao registroDeAplicacao = new RegistroDeAplicacao("João Mock da Silva", "332233", paciente.getNome(), paciente.getCpf(), paciente.getPrescricao().getMedicamento().getNomeMedicamento(), dosagemAplicada, paciente.getPrescricao().getUnidadeDeMedidada(), LocalDateTime.now());
         historico.adicionarRegistro(registroDeAplicacao);
+        btnAplicação.setEnabled(false);
     }//GEN-LAST:event_btnAplicaçãoActionPerformed
 
     /**

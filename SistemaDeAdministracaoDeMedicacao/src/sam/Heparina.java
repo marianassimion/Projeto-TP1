@@ -1,11 +1,20 @@
 package sam;
 
+/**
+ * Classe especialista de Medicamento que implementa as especificidades do medicamento Heparina
+ *
+ * @author Dionilton
+ * @version 1.0
+ */
 public class Heparina extends Medicamento{
     private int formulacao;
     private int dosagemPrescrita;
     private int dosagemDisponivel;
     private String unidadeDeMedida;
-
+    
+    /** 
+    * Construtor da classe
+    */
     public Heparina(String descricao, Prescricao prescricao) {
         super("Heparina", descricao, prescricao);
     }
@@ -42,7 +51,13 @@ public class Heparina extends Medicamento{
     public void setUnidadeDeMedida(String unidadeDeMedida) {
         this.unidadeDeMedida = unidadeDeMedida;
     }
-
+    
+    /**
+     * Sobscrever o método de calculo de dosagem de forma mais especifica ao medicamento em si.
+     *
+     * @param dosagem float representando a dosagem prescrita
+     * @return retorna o valor de dosagem para ser administrado na aplicação
+     */
     @Override
     public float calculoDeDosagem(double dosagem) {
         if(formulacao == 0) {

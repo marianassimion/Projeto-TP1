@@ -3,6 +3,12 @@ package sam;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Classe modelo que representa a ocorrência de um Registro de Aplicação.
+ *
+ * @author Dionilton
+ * @version 1.0
+ */
 public class RegistroDeAplicacao {
     private String nomeEnfermeiro;
     private String coren;
@@ -54,7 +60,10 @@ public class RegistroDeAplicacao {
     public void setCpfPaciente(String cpfPaciente) {
         this.cpfPaciente = cpfPaciente;
     }
-
+    
+    /** 
+    * Construtor da classe
+    */
     public RegistroDeAplicacao(String nomeEnfermeiro, String coren, String nomePaciente, String cpfPaciente, String nomeMedicamento, float dosagemAplicada, String unidadeDeMedida, LocalDateTime data) {
         this.nomeEnfermeiro = nomeEnfermeiro;
         this.coren = coren;

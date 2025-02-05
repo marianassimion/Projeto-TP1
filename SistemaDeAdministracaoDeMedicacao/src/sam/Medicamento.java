@@ -1,7 +1,13 @@
 package sam;
-
 import java.time.LocalDate;
 
+
+/**
+ * Classe generalista que representa os atributos e métodos em comum de classes do tipo medicamento
+ *
+ * @author Dionilton
+ * @version 1.0
+ */
 public abstract class Medicamento {
     protected String nomeMedicamento;
     protected String descricao;
@@ -30,15 +36,15 @@ public abstract class Medicamento {
     public void setPrescricao(Prescricao prescricao) {
         this.prescricao = prescricao;
     }
-
+    
+    /** 
+    * Construtor da classe
+    */
     public Medicamento(String nomeMedicamento, String descricao, Prescricao prescricao) {
         this.nomeMedicamento = nomeMedicamento;
         this.descricao = descricao;
         this.prescricao = prescricao;
     }
-    
-    
-
 
     public String mostrarDescricao() {
         //todo: implementar lógica do método
