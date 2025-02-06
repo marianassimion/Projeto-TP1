@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TelaCadastroPaciente extends javax.swing.JFrame {
     
     private static final String BANCO_DADOS = "cadastro_pacientes.txt";
-    private ArrayList<Paciente> listaPacientes = new ArrayList(); //lista vazia de pacientes
+    public static ArrayList<Paciente> listaPacientes = new ArrayList(); //lista vazia de pacientes
 
     public TelaCadastroPaciente() {
         

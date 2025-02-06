@@ -17,6 +17,7 @@ import sam.Medicamento;
 import sam.Paciente;
 import sam.Penicilina;
 import sam.RegistroDeAplicacao;
+import Telas.TelaCadastroPaciente;
 
 /**
  *
@@ -50,7 +51,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
     }
     
     public void carregarListaPacientes() {
-        for (Paciente p : calculoDeDosagem.getPacientes()) {
+        for (Paciente p : TelaCadastroPaciente.listaPacientes) {
             if(p.getPrescricao() != null)
                 cboxPacientes.addItem(p.getNome() + "," + p.getCpf());
         }
@@ -387,7 +388,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cpf = ((String)cboxPacientes.getSelectedItem()).split(",")[1];
         
-        Paciente paciente = calculoDeDosagem.getPacientes().stream()
+        Paciente paciente = TelaCadastroPaciente.listaPacientes.stream()
                 .filter(p -> p.getCpf().equals(cpf))
                 .findFirst()
                 .orElse(null);
@@ -451,7 +452,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
     private void btnConfirmarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPacienteActionPerformed
         String cpf = ((String)cboxPacientes.getSelectedItem()).split(",")[1];
         
-        Paciente paciente = calculoDeDosagem.getPacientes().stream()
+        Paciente paciente = TelaCadastroPaciente.listaPacientes.stream()
                 .filter(p -> p.getCpf().equals(cpf))
                 .findFirst()
                 .orElse(null);
@@ -465,7 +466,7 @@ public class TelaCalculoDeDosagem extends javax.swing.JFrame {
         
         String cpf = ((String)cboxPacientes.getSelectedItem()).split(",")[1];
         
-        Paciente paciente = calculoDeDosagem.getPacientes().stream()
+        Paciente paciente = TelaCadastroPaciente.listaPacientes.stream()
                 .filter(p -> p.getCpf().equals(cpf))
                 .findFirst()
                 .orElse(null);
