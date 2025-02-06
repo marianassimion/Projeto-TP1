@@ -316,11 +316,9 @@ public class CadastrarEnfermeiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarCadastroEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCadastroEnfermeiroActionPerformed
-        if (txtNomeCadastroEnfermeiro.getText().equals("") || txtCpfCadastroEnfermeiro.getText().equals("") || 
-            txtCorenCadastroEnfermeiro.getText().equals("") || txtDataNascimentoCadastroEnfermeiro.getText().equals("") || 
-            txtSetorCadastroEnfermeiro.getText().equals("")) {
+        if (txtNomeCadastroEnfermeiro.getText().equals("") || txtCpfCadastroEnfermeiro.getText().equals("") || txtCorenCadastroEnfermeiro.getText().equals("") || txtDataNascimentoCadastroEnfermeiro.getText().equals("") ||  txtSetorCadastroEnfermeiro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos", "Aviso", JOptionPane.PLAIN_MESSAGE);
-            btnSalvarCadastroEnfermeiro.setEnabled(true);
+            //btnSalvarCadastroEnfermeiro.setEnabled(true);
     } else {
         // Pegando os valores dos campos
         String nome = txtNomeCadastroEnfermeiro.getText();

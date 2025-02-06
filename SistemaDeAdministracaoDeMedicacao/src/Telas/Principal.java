@@ -4,13 +4,34 @@ import javax.swing.JOptionPane;
 public class Principal extends javax.swing.JFrame {
 
     private static final String BANCO_DADOS = "login.txt";
+    private static final String BANCO_DADOS_ADM = "login_adm.txt";
+    
     public Principal() {
         initComponents();
         setLocationRelativeTo(null); //muda o local de origem da tela
 
     }
 
-    public static boolean verificarCredenciais(String login, String senha){
+   public static boolean verificarCredenciaisAdm(String login, String senha) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(BANCO_DADOS_ADM))) {
+        String linha;
+        while ((linha = reader.readLine()) != null) {
+            String[] credenciais = linha.split(";");
+            if (credenciais.length == 2) {
+                String loginArquivo = credenciais[0].trim();
+                String senhaArquivo = credenciais[1].trim();
+
+                if (loginArquivo.equals(login) && senhaArquivo.equals(senha)) {
+                    return true; // Credenciais de administrador encontradas
+                }
+            }
+        }
+    } catch (IOException e) {
+        System.out.println("Erro ao ler o arquivo de administradores: " + e.getMessage());
+    }
+    return false; // Login não encontrado no banco de administradores
+}
+ public static boolean verificarCredenciais(String login, String senha){
         try{
             BufferedReader reader = new BufferedReader(new FileReader(BANCO_DADOS));
             String linha;
@@ -168,14 +189,15 @@ public class Principal extends javax.swing.JFrame {
         
         String login = labelUsuario.getText().trim();
         String senha = labelSenha.getText().trim();
-
-        verificarCredenciais(login, senha);
         
-        if (verificarCredenciais(login, senha)){
+        if (verificarCredenciaisAdm(login, senha)){
             this.setVisible(false);
-            new TelaInicial().setVisible(true);
+            new TelaEnfermeiro().setVisible(true);
         } 
-        
+        else if (verificarCredenciais(login, senha)) {
+            this.setVisible(false);
+            new TelaInicial().setVisible(true); // Abre a tela principal para usuários comuns
+    } 
         else{
             JOptionPane.showMessageDialog(this, "Login ou senha incorretos.");
         }

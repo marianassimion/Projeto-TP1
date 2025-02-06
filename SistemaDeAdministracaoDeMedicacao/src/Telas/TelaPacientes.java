@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -77,13 +78,20 @@ public class TelaPacientes extends javax.swing.JFrame {
                 String altura = partes[4].trim();
                 String idade = partes[5].trim();
                 String alergia = partes[6].trim();
+                String dataFormatada = "";
 
+                System.out.println(dataNascimentoStr);
+                System.out.println(dataFormatada);
+                
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-                String dataFormatada = dataNascimento.format(formatter);
-
+                System.out.println("Carregou a tabela");
+                System.out.println("Dentro do try:" + dataNascimento);
+                dataFormatada = dataNascimento.format(formatter);
+                System.out.println("Formatada: "+dataFormatada);
                 modelo.addRow(new Object[]{nome, cpf, dataFormatada, peso, altura, idade, alergia }); //cria uma linha nova na tabela
             }
+            
         } catch (IOException e) {
             System.out.println("Erro ao ler os dados: " + e.getMessage());
         }
@@ -108,12 +116,16 @@ public class TelaPacientes extends javax.swing.JFrame {
 
                 String nome = partes[0].trim();
                 String cpf = partes[1].trim();
-                String dataNascimento = partes[2].trim();
+                String dataNascimentoStr = partes[2].trim();
                 String peso = partes[3].trim();
                 String altura = partes[4].trim();
                 String idade = partes[5].trim();
                 String alergia = partes[6].trim();
-
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+                String dataFormatada = dataNascimento.format(formatter);
+                
                 boolean nomeCorresponde = filtroNome.isEmpty() || nome.toLowerCase().contains(filtroNome.toLowerCase());
                 boolean corenCorresponde = filtroCpf.isEmpty() || cpf.toLowerCase().contains(filtroCpf.toLowerCase());
 
@@ -418,9 +430,9 @@ public class TelaPacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        System.out.println("Acionou o botão novo");
+        dispose();
         new TelaCadastroPaciente().setVisible(true);
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed

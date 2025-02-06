@@ -53,12 +53,27 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 String[] partes = linha.split(";");
                 String nome = partes[0].trim();
                 String cpf = partes[1].trim();
-                LocalDate dataNascimento = LocalDate.parse(partes[2].trim());
+                String dataNascimentoStr = partes[2].trim();
+                //LocalDate dataNascimento = LocalDate.parse(partes[2].trim());
                 float peso = Float.parseFloat(partes[3].trim());
                 float altura = Float.parseFloat(partes[4].trim());
                 int idade = Integer.parseInt(partes[5].trim());
                 String alergia = partes[6].trim();
-            }
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                 if (!dataNascimentoStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                        JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                        return;
+                }
+                // Tentando converter a data
+                LocalDate dataNascimento = null;
+                try {
+                    dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+                } catch (DateTimeParseException e) {
+                    JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                    }
         }
         catch (IOException e) {
             System.out.println("Erro ao ler os dados: " + e.getMessage());
@@ -339,7 +354,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
             try{
                 String nome = txtNomePacienteCadastro.getText();
                 String cpf = txtCpfPacienteCadastro.getText();
-                String dataNascimentoStr = txtDataNascimentoPacienteCadastro.getText();
+                String dataNascimentoStr = txtDataNascimentoPacienteCadastro.getText().trim();
                 String alergia = cbAlergiasPacienteCadastro.getSelectedItem().toString();
                 String pesoStr = txtPesoPacienteCadastro.getText().replace(",", ".");
                 String alturaStr =txtAlturaPacienteCadastro.getText().replace(",", ".");
@@ -347,13 +362,31 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 float peso = Float.valueOf(pesoStr);
                 float altura = Float.valueOf(alturaStr);
                 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Definindo o formato da data
-                LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                
+                if (!dataNascimentoStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                    JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Tentando converter a data
+                LocalDate dataNascimento = null;
+                try {
+                    dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+                } catch (DateTimeParseException e) {
+                    JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
                 LocalDate hoje = LocalDate.now();
+                if (dataNascimento.isAfter(hoje)) {
+                    JOptionPane.showMessageDialog(null, "A data de nascimento não pode ser no futuro.", "Erro de Data", JOptionPane.ERROR_MESSAGE);
+                        return;}
+                
+                String dataFormatada = dataNascimento.format(formatter);
 
                 int idade = calcularIdade(dataNascimento);
 
-                // Removendo caracteres não numéricos
                 cpf = cpf.replaceAll("[^0-9]", "");
 
                 if (!isNomeValido(nome)){
@@ -361,10 +394,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                         return;
                 }
                 
-                if (dataNascimento.isAfter(hoje)) {
-                    JOptionPane.showMessageDialog(null, "A data de nascimento não pode ser no futuro.", "Erro de Data", JOptionPane.ERROR_MESSAGE);
-                        return;}
-
                 if (isCpf(cpf) == false) {
                     JOptionPane.showMessageDialog(null, "Insira um CPF válido", "Erro de CPF", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -375,20 +404,19 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                     return;
                 }
                 Paciente paciente = new Paciente (peso, altura, idade, nome, cpf, dataNascimentoStr, alergia);
+                salvarNoArquivo(paciente);
                 listaPacientes.add(paciente);
 
-                salvarNoArquivo(paciente);
                 
                 JOptionPane.showMessageDialog(null, "Paciente "+ nome +" cadastrado com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE);
                 
                 txtNomePacienteCadastro.setText("");
                 txtCpfPacienteCadastro.setText("");
-                txtDataNascimentoPacienteCadastro.setText("");
+                txtDataNascimentoPacienteCadastro.setText("//");
                 txtPesoPacienteCadastro.setText("");
                 txtAlturaPacienteCadastro.setText("");
                 cbAlergiasPacienteCadastro.setSelectedItem("Selecione");
                 dispose();
-                
                 
             }
             
